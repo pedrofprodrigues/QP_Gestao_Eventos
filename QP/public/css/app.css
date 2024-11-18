@@ -1,0 +1,269 @@
+body {
+    display: flex;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+nav {
+    width: 300px;
+    background-color: #bcbcbc;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+nav a {
+    display: block;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+
+}
+
+nav a:hover {
+    background-color: #575757;
+}
+
+
+
+
+.container {
+    max-width: 1200px;
+    margin-left: 300px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.table {
+    max-width: 1200px;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.table thead {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.table th,
+.table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    font-weight: bold;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.btn {
+    margin: 0 5px;
+    padding: 6px;
+    font-size: 0.7rem;
+    border-radius: 4px;
+}
+
+.btn-nav {
+    margin: 10px;
+    padding: 20px;
+    font-size: 1.5rem;
+    border-radius: 4px;
+    background-color: #333;
+}
+
+.btn-edit {
+    margin: 10px;
+    padding: 20px;
+    font-size: 1.5rem;
+    border-radius: 4px;
+    background-color: #a4a4a4;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+    display: block;
+    width: 200px;
+    margin: 20px auto 0;
+    text-align: center;
+}
+
+form.d-inline {
+    display: inline-block;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+}
+
+.form-group label {
+    margin-right: 10px;
+    min-width: 150px;
+}
+
+.mid {
+    margin: 15px;
+    flex: 1;
+}
+
+.form-group input {
+    flex: 1;
+    padding: 5px;
+}
+
+
+
+fieldset {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+legend {
+    font-weight: bold;
+    color: #007BFF;
+    font-size: larger;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="datetime-local"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+    font-family: "Arial", Times, serif;
+    font-size: 14px;
+}
+
+.checkbox-group {
+    padding-top: 5px;
+    padding-bottom: 15px;
+}
+
+.checkbox-group label {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.checkbox-group input {
+    margin-right: 5px;
+}
+
+.button-go {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-delete {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-go:hover {
+    background-color: #0056b3;
+}
+
+.button-delete:hover {
+    background-color: #b30000;
+}
+
+
+
+.custom-alert {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 15px;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.custom-alert.success-alert {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.calendar {
+    width: 1200px;
+    height: 800px;
+}

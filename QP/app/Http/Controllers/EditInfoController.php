@@ -1,0 +1,140 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Models\Appetizer;
+use App\Models\Meat;
+use App\Models\Fish;
+use App\Models\Soup;
+use App\Models\Dessert;
+use App\Models\EventType;
+use App\Models\Status;
+
+class EditInfoController extends Controller
+{
+    public function show()
+    {
+        $food_options = ['Appetizers', 'Soups', 'Fishes', 'Meats', 'Desserts'];
+        $other_options = ['Event types', 'Statuses'];
+        return view('editInfo.index', compact('food_options', 'other_options'));
+    }
+
+
+    public function createFood($option, Request $request)
+    {
+        $classToMatch = match ($option) {
+            'Appetizers' => Appetizer::class,
+            'Soups' => Soup::class,
+            'Fishes' => Fish::class,
+            'Meats' => Meat::class,
+            'Desserts' => Dessert::class,
+            default => 'default result',
+        };
+        if (!$classToMatch) {
+            return redirect()->back()->with('error', 'Invalid option selected.');
+        }
+        $newInfo = $classToMatch::create($request->only(['name', 'details', 'price', 'photo']));
+        $newInfo->save();
+        return redirect()->route('editTables')->with('success', "{$newInfo->name} has been created successfully.");
+    }
+
+
+    public function createOther($option, Request $request)
+    {
+        $classToMatch = match ($option) {
+            'Event types' => EventType::class,
+            'Statuses' => Status::class,
+            default => 'default result',
+        };
+        if (!$classToMatch) {
+            return redirect()->back()->with('error', 'Invalid option selected.');
+        }
+        $newInfo = $classToMatch::create($request->only(['option']));
+        $newInfo->save();
+        return redirect()->route('editTables')->with('success', "{$newInfo->option} has been created successfully.");
+    }
+
+    public function editFoods($option)
+    {
+        $classToMatch = match ($option) {
+            'Appetizers' => Appetizer::class,
+            'Soups' => Soup::class,
+            'Fishes' => Fish::class,
+            'Meats' => Meat::class,
+            'Desserts' => Dessert::class,
+            default => 'default result',
+        };
+        $completeInfo = $classToMatch::orderBy('id')->get();
+        return view('editInfo.foodInfo', ['option' => $option], compact('completeInfo'));
+    }
+    public function editOtherOptions($option)
+    {
+        $classToMatch = match ($option) {
+            'Event types' => EventType::class,
+            'Statuses' => Status::class,
+            default => 'default result',
+        };
+        $completeInfo = $classToMatch::orderBy('id')->get();
+        return view('editInfo.otherInfo', ['option' => $option], compact('completeInfo'));
+    }
+
+    public function saveEditFoods($option, Request $request)
+    {
+
+        $classToMatch = match ($option) {
+            'Appetizers' => Appetizer::class,
+            'Soups' => Soup::class,
+            'Fishes' => Fish::class,
+            'Meats' => Meat::class,
+            'Desserts' => Dessert::class,
+            default => 'default result',
+        };
+
+        $classToMatch::where('id', $request->id)
+            ->update([
+                'name' => $request->name,
+                'details' => $request->details,
+                'price' => $request->price,
+                'photo' => $request->photo
+            ]);
+
+
+        return redirect()->route('editTables')->with('success', "{$request->name} has been changed successfully.");
+    }
+
+
+    public function saveEditOthers($option, Request $request)
+    {
+
+        $classToMatch = match ($option) {
+            'Event types' => EventType::class,
+            'Statuses' => Status::class,
+            default => 'default result',
+        };
+
+        $classToMatch::where('id', $request->id)
+            ->update([
+                'option' => $request->option,
+            ]);
+        return redirect()->route('editTables')->with('success', "{$request->option} has been changed successfully.");
+    }
+
+    public function deleteOption($option, Request $request)
+    {
+
+        $classToMatch = match ($option) {
+            'Appetizers' => Appetizer::class,
+            'Soups' => Soup::class,
+            'Fishes' => Fish::class,
+            'Meats' => Meat::class,
+            'Desserts' => Dessert::class,
+            'Event types' => EventType::class,
+            'Statuses' => Status::class,
+            default => 'default result',
+        };
+        $classToMatch::where('id', $request->id)->delete();
+        return redirect()->route('editTables')->with('success', "{$request->option} has been deleted.");
+    }
+}
