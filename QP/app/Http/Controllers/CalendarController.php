@@ -17,16 +17,45 @@ class CalendarController extends Controller
 
 
             $roomsUsed = [];
+            $rooms = [];
 
-            if ($event->room_dinis) $roomsUsed[] = 'Dinis';
-            if ($event->room_isabel) $roomsUsed[] = 'Isabel';
-            if ($event->room_joaoiii) $roomsUsed[] = 'JoaoIII';
-            if ($event->room_leonor) $roomsUsed[] = 'Leonor';
-            if ($event->room_espelhos) $roomsUsed[] = 'Espelhos';
-            if ($event->room_atrium) $roomsUsed[] = 'Atrium';
-            if ($event->lago) $roomsUsed[] = 'Lago';
-            if ($event->auditorio) $roomsUsed[] = 'Auditorio';
-            if ($event->jardim) $roomsUsed[] = 'Jardim';
+            if ($event->room_dinis) {
+                $roomsUsed[] = 'Dinis';
+                $rooms[] = 'room_dinis';
+            }
+            if ($event->room_isabel) {
+                $roomsUsed[] = 'Isabel';
+                $rooms[] = 'room_isabel';
+            }
+            if ($event->room_joaoiii) {
+                $roomsUsed[] = 'JoaoIII';
+                $rooms[] = 'room_joaoiii';
+            }
+            if ($event->room_leonor) {
+                $roomsUsed[] = 'Leonor';
+                $rooms[] = 'room_leonor';
+            }
+            if ($event->room_espelhos) {
+                $roomsUsed[] = 'Espelhos';
+                $rooms[] = 'room_espelhos';
+            }
+            if ($event->room_atrium) {
+                $roomsUsed[] = 'Atrium';
+                $rooms[] = 'room_atrium';
+            }
+            if ($event->lago) {
+                $roomsUsed[] = 'Lago';
+                $rooms[] = 'lago';
+            }
+            if ($event->auditorio) {
+                $roomsUsed[] = 'Auditorio';
+                $rooms[] = 'auditorio';
+            }
+            if ($event->jardim) {
+                $roomsUsed[] = 'Jardim';
+                $rooms[] = 'jardim';
+            }
+
 
             $roomsUsedString = implode("\n", $roomsUsed);
 
@@ -35,7 +64,7 @@ class CalendarController extends Controller
                 'title' => $event->name,
                 'start' => $event->event_date_start->format('Y-m-d\TH:i:s'),
                 'end' => $event->event_date_end->format('Y-m-d\TH:i:s'),
-                'room' => $roomsUsed,
+                'room' => $rooms,
                 'color' => $hasCollision ? 'red' : null,
                 'textColor' => $hasCollision ? 'black' : null,
                 'extendedProps' => [

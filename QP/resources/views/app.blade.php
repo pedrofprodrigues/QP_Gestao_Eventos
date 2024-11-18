@@ -15,7 +15,7 @@
         <a href="{{ route('editTables') }}" class="btn-nav">Edit info</a>
     </nav>
 
-    <div class="container" style="min-width: 800px">
+    <div class="container" >
         @yield('content')
     </div>
   
