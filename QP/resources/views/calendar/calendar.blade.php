@@ -36,7 +36,7 @@
             <button type="button" class="btn btn-secondary ml-2" onclick="uncheckAll()">Uncheck All</button>
             <button type="button" class="btn btn-primary ml-2" onclick="filterRedEvents()">Show Collisions only</button>
         </div>
-    </div> 
+    </div>
 
     <div class="calendar" id="calendar"></div>
 
@@ -65,6 +65,12 @@
                 hour12: false,
             },
             events: events,
+        eventClick: function(info) {
+            var eventId = info.event.id;
+
+            var editUrl = '/events/' + eventId + '/edit';
+            window.open(editUrl, '_blank');
+        },
         });
 
         calendar.render();
@@ -137,7 +143,7 @@
     .calendar {
         display: flex;
         flex-direction: column;
-        height: fit-content; 
+        height: fit-content;
         flex-grow: 1;
         width: 100%;
     }
