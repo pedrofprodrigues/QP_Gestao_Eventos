@@ -48,7 +48,7 @@ h1 {
 }
 
 .table {
-    max-width: calc(100% - 300px);
+    width:100%;
     border-collapse: collapse;
     margin: 20px 0;
 }
@@ -267,4 +267,9 @@ textarea {
 .calendar {
     width: 1200px;
     height: 800px;
+
+}
+
+#calendar > div.fc-view-harness.fc-view-harness-active {
+    height: 600px !important;
 }

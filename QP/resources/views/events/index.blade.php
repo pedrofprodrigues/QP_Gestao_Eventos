@@ -46,12 +46,12 @@
                     @endforeach
                 </select>
             </div>
-            
+
             <div class="col-md-3">
                 <label for="event_date" class="form-label">Event Date:</label>
                 <input type="date" id="event_date" name="event_date" class="form-control" value="{{ request('event_date') }}">
             </div>
-            
+
             <div class="col-md-3 align-self-end">
                 <button type="submit" class="btn btn-primary ml-2">Filter</button>
             </div>
@@ -60,9 +60,9 @@
 
         </div>
 
-        
 
-          
+
+
         </div>
     </form>
 
@@ -70,7 +70,7 @@
     @if($events->isEmpty())
         <p>No events found.</p>
     @else
-        <table class="table table-hover">
+        <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Event Name</th>
@@ -80,7 +80,7 @@
                     <th scope="col">End Date</th>
                     <th scope="col">Event Type</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Client</th>
+                    <th scope="col">Client Name / Contact</th>
                     <th scope="col">QP Manager</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -105,13 +105,13 @@
 
                         <td>{{ ucfirst($event->event_type_value->option) }}</td>
                         <td>{{ ucfirst($event->status_value->option) }}</td>
-                        <td>{{ ucfirst($event->client_resp_name) }} {{ $event->client_resp_contact }}</td>
+                        <td>{{ ucfirst($event->client_resp_name) }} / {{ $event->client_resp_contact }}</td>
                         <td>{{ ucfirst($event->qp_resp_name) }}</td>
 
                         <td>
                             <div class="form-group">
                                 <a href="{{ route('events.edit', ['id' => $event->id]) }}" class="btn btn-secondary btn-sm">Edit</a>
-                
+
                                 <form action="{{ route('events.destroy', ['id' => $event->id]) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')

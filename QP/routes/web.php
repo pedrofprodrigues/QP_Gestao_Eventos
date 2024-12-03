@@ -1,11 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\EditInfoController;
-
+use App\Http\Controllers\ClientController;
 
 Route::redirect('/', '/events');
 
@@ -19,7 +18,7 @@ Route::delete('/events/{id}/destroy', [EventController::class, 'destroy'])->name
 
 Route::get('/calendar', [CalendarController::class, 'show'])->name('calendar');
 
-Route::get('/calendar', [CalendarController::class, 'show'])->name('calendar');
+Route::get('/client', [ClientController::class, 'show']);
 
 Route::post('/editInfo/{option}/createFood', [EditInfoController::class, 'createFood'])->name('newFoodInfo');
 Route::post('/editInfo/{option}/createOther', [EditInfoController::class, 'createOther'])->name('newOtherInfo');
