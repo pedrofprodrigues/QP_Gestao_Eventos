@@ -107,12 +107,14 @@
         var roomsToCheck = new Set();
 
         calendar.getEvents().forEach(function(event) {
-            if (event.color === 'red') {
+            if (event.backgroundColor === 'red') {
                 (event.extendedProps.room || []).forEach(function(room) {
                     roomsToCheck.add(room);
                 });
             }
         });
+
+        console.log(roomsToCheck);
 
         document.querySelectorAll('.checkbox-group input[type="checkbox"]').forEach(function(checkbox) {
             var checkboxId = checkbox.id;
