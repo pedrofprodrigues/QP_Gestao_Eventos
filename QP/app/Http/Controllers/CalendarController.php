@@ -60,15 +60,14 @@ class CalendarController extends Controller
             $roomsUsedString = implode("\n", $roomsUsed);
 
             return [
-                'id' => $event->id,
                 'title' => $event->name,
                 'start' => $event->event_date_start->format('Y-m-d\TH:i:s'),
                 'end' => $event->event_date_end->format('Y-m-d\TH:i:s'),
-                'room' => $rooms,
                 'color' => $hasCollision ? 'red' : null,
                 'textColor' => $hasCollision ? 'black' : null,
                 'extendedProps' => [
-                    'description' => $roomsUsedString
+                    'description' => $roomsUsedString,
+                    'room' => $rooms,
                 ],
             ];
         });

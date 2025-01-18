@@ -218,7 +218,7 @@
                 <input type="text" id="client_resp_name" name="client_resp_name" required>
             </div>
             <div class="mid">
-                <label for="client_resp_contact">Contacto:</label>
+                <label for="client_resp_contact">Contacto telefónico:</label>
                 <input type="text" id="client_resp_contact" name="client_resp_contact" required>
             </div>
             <div class="mid">
@@ -249,7 +249,7 @@
                 @foreach ($appetizers as $appetizer)
 
                     <li class="food-item">
-                        <img src="{{ asset('storage/'.$appetizer->photo).'.jpeg' }}" alt="Food" />
+                        <img src="{{ asset('storage/uploads/photos/'.$appetizer->photo) }}" alt="Food" />
                         <button onclick="addToCart('Entradas', '{{$appetizer->name}}')">{{$appetizer->name}}</button>
                     </li>
                 @endforeach
@@ -259,7 +259,7 @@
             <div class="category">
                 @foreach ($soups as $soup)
                     <li class="food-item">
-                        <img src="{{ asset('storage/'.$soup->photo) .'.jpeg' }}" alt="Food" />
+                        <img src="{{ asset('storage/uploads/photos/'.$soup->photo) }}" alt="Food" />
                         <button onclick="addToCart('Sopa', '{{$soup->name}}')">{{$soup->name}}</button>
                     </li>
                 @endforeach
@@ -269,7 +269,7 @@
 
                 @foreach ($meats as $meat)
                     <li class="food-item">
-                        <img src="{{ asset('storage/'.$meat->photo).'.jpeg'  }}" alt="Food" />
+                        <img src="{{ asset('storage/uploads/photos/'.$meat->photo) }}" alt="Food" />
                         <button onclick="addToCart('Carne', '{{$meat->name}}')">{{$meat->name}}</button>
                     </li>
                 @endforeach
@@ -279,7 +279,7 @@
 
                 @foreach ($fishs as $fish)
                     <li class="food-item">
-                        <img src="{{ asset('storage/'.$fish->photo) .'.jpeg' }}" alt="Food" />
+                        <img src="{{ asset('storage/uploads/photos/'.$fish->photo)  }}" alt="Food" />
                         <button onclick="addToCart('Peixe', '{{$fish->name}}')">{{$fish->name}}</button>
                     </li>
                 @endforeach
@@ -289,7 +289,7 @@
 
                 @foreach ($desserts as $dessert)
                     <li class="food-item">
-                        <img src="{{ asset('storage/'.$dessert->photo) .'.jpeg' }}" alt="Food" />
+                        <img src="{{ asset('storage/uploads/photos/'.$dessert->photo)  }}" alt="Food" />
                         <button onclick="addToCart('Sobremesa', '{{$dessert->name}}')">{{$dessert->name}}</button>
                     </li>
                 @endforeach

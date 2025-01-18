@@ -82,27 +82,50 @@ class EditInfoController extends Controller
 
     public function saveEditFoods($option, Request $request)
     {
-
+        // Match the model class based on the option
         $classToMatch = match ($option) {
             'Appetizers' => Appetizer::class,
             'Soups' => Soup::class,
             'Fishes' => Fish::class,
             'Meats' => Meat::class,
             'Desserts' => Dessert::class,
-            default => 'default result',
+            default => null,
         };
 
-        $classToMatch::where('id', $request->id)
-            ->update([
-                'name' => $request->name,
-                'details' => $request->details,
-                'price' => $request->price,
-                'photo' => $request->photo
-            ]);
 
+        // Validate the input fields
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'details' => 'required|string',
+            'price' => 'required|regex:/^\d+(\.\d{1,2})?$/', // Ensure price is a valid decimal
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-        return redirect()->route('editTables')->with('success', "{$request->name} has been changed successfully.");
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+
+            // Append timestamp to the original file name to ensure uniqueness
+            $originalName = $file->getClientOriginalName();
+            $filename = time() . '_' . $originalName;
+
+            // Store the file in the `uploads/photos` directory
+            $file->storeAs('uploads/photos', $filename, 'public');
+
+            // Update the validated data with the stored file name
+            $validated['photo'] = $filename;
+        }
+
+        // Update the database record
+        $classToMatch::where('id', $request->id)->update([
+            'name' => $validated['name'],
+            'details' => $validated['details'],
+            'price' => $validated['price'],
+            'photo' => $validated['photo'] ?? $request->photo, // Keep existing photo if no new file is uploaded
+        ]);
+
+        return redirect()->route('editTables')->with('success', "{$validated['name']} has been changed successfully.");
     }
+
 
 
     public function saveEditOthers($option, Request $request)

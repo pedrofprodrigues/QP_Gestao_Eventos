@@ -1,12 +1,13 @@
 @extends('app')
 
 @section('title', 'Calendar')
-
 @section('content')
 
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@3.8.0/event-calendar.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@3.8.0/event-calendar.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet"/>
+
 
 <input type="text" id="datePicker" placeholder="Select a date to change the week" />
 @php
@@ -47,38 +48,36 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         var calendarEl = document.getElementById('calendar');
-        calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'timeGridWeek',
-            firstDay: 1,
-            headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'timeGridWeek,timeGridDay',
-            },
-            slotDuration: '01:00:00',
+        calendar = new EventCalendar(calendarEl, {
+            view: 'timeGridWeek',
+            startWeekDay: 1,
             allDaySlot: false,
-            slotMinTime: '00:00:00',
-            slotMaxTime: '24:00:00',
-            slotLabelFormat: {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: false,
+            headerToolbar: {
+                start: 'prev,next today',
+                center: 'title',
+                end: 'timeGridWeek,timeGridDay, resourceTimeGridDay',
             },
+            resources:[
+                {id:'JoaoIII' , title:'JoaoIII', eventBackgroundColor:'red'},
+                {id:1 , title:'Maria', eventBackgroundColor:'blue'},
+                {id:1 , title:'Francisco', eventBackgroundColor:'white'},
+            ],
+            slotDuration: 3600,
+            minTime: '00:00',
+            maxTime: '24:00',
+            timeFormat:'HH:mm',
             events: events,
-        eventClick: function(info) {
-            var eventId = info.event.id;
-
-            var editUrl = '/events/' + eventId + '/edit';
-            window.open(editUrl, '_blank');
-        },
-        });
-
-        calendar.render();
-
-        flatpickr("#datePicker", {
-            onChange: function (selectedDates) {
-                calendar.gotoDate(selectedDates[0]);
+            eventClick: function(info) {
+                var eventId = info.event.id;
+                var editUrl = '/events/' + eventId + '/edit';
+                window.open(editUrl, '_blank');
             },
+        });
+        
+        flatpickr("#datePicker", {
+           onChange: function (selectedDates) {
+                calendar.setOption('date', selectedDates[0]); 
+    },
             defaultDate: new Date(),
         });
 
@@ -94,12 +93,13 @@
         });
 
         calendar.getEvents().forEach(function (event) {
+            console.log(event);
             var eventRooms = event.extendedProps.room || [];
             var showEvent = eventRooms.some(function (room) {
                 return checkedRooms.includes(room);
             });
 
-            event.setProp('display', showEvent ? 'auto' : 'none');
+             event.setProp('display', showEvent ? 'auto' : 'none');
         });
     }
 
