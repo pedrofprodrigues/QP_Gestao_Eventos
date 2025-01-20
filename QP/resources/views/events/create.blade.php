@@ -63,21 +63,27 @@
     <!-- Menu Selection -->
     <fieldset>
         <legend>Menu Selection</legend>
-        @foreach($dishes as $dishName => $dishList)
-        @php
-         $dishNameLower = strtolower( rtrim($dishName, 's'));
-        @endphp
-    
-        <div class="mid">
-            <label for="{{ $dishNameLower }}">{{ ucfirst($dishNameLower) }}</label>
-            <select id="{{ $dishNameLower }}" name="{{ $dishNameLower }}" required>
+
+
+
+        
+@foreach($dishes as $dishData)
+    @php
+        $display = $dishData[0]; 
+        $dishArray = collect($dishData)->except(0);
+        $dishName = $dishArray->keys()->first();
+        $dishList = $dishArray->first(); 
+    @endphp
+    <div class="mid">
+        <label for="{{ $dishName }}">{{ $display }}</label>
+        <select id="{{ $dishName }}" name="{{ $dishName }}">
+            <option value=""> -- NA --</option>
                 @foreach($dishList as $singleDish)
                     <option value="{{ $singleDish->id }}">{{ $singleDish->name }}</option>
                 @endforeach
-            </select>
-        </div>
-        @endforeach
-
+        </select>
+    </div>
+@endforeach
 
     </fieldset>
 

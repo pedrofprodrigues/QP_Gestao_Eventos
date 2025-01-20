@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'Calendar')
+@section('title', 'Calendário')
 @section('content')
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@3.8.0/event-calendar.min.css">
@@ -9,7 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 
-<input type="text" id="datePicker" placeholder="Select a date to change the week" />
+<input type="text" id="datePicker" placeholder="Seleccionar data" />
 @php
     $rooms = [
         'Dinis' => 'room_dinis',
@@ -55,12 +55,18 @@
             headerToolbar: {
                 start: 'prev,next today',
                 center: 'title',
-                end: 'timeGridWeek,timeGridDay, resourceTimeGridDay',
+                end: 'timeGridWeek, resourceTimeGridDay',
             },
             resources:[
-                {id:'JoaoIII' , title:'JoaoIII', eventBackgroundColor:'red'},
-                {id:1 , title:'Maria', eventBackgroundColor:'blue'},
-                {id:1 , title:'Francisco', eventBackgroundColor:'white'},
+                {id:1 , title:'Dinis', eventBackgroundColor:"#010669"},
+                {id:2 , title:'Isabel', eventBackgroundColor:'#45012e'},
+                {id:3 , title:'Joao III', eventBackgroundColor:'#069101'},
+                {id:4 , title:'Leonor', eventBackgroundColor:'#000000'},
+                {id:5 , title:'Espelhos', eventBackgroundColor:'#024200'},
+                {id:6 , title:'Atrium', eventBackgroundColor:'#01423d'},
+                {id:7 , title:'Lago', eventBackgroundColor:'#000cf7'},
+                {id:8 , title:'Auditorio', eventBackgroundColor:'#02b0a1'},
+                {id:9 , title:'Jardim', eventBackgroundColor:'blue'},
             ],
             slotDuration: 3600,
             minTime: '00:00',
@@ -86,22 +92,21 @@
         });
     });
 
-    function filterEvents() {
-        var checkedRooms = [];
-        document.querySelectorAll('.checkbox-group input[type="checkbox"]:checked').forEach(function (checkbox) {
-            checkedRooms.push(checkbox.id);
-        });
+function filterEvents() {
+    var checkedRooms = [];
+    document.querySelectorAll('.checkbox-group input[type="checkbox"]:checked').forEach(function (checkbox) {
+        checkedRooms.push(checkbox.id);
+    });
 
-        calendar.getEvents().forEach(function (event) {
-            console.log(event);
-            var eventRooms = event.extendedProps.room || [];
-            var showEvent = eventRooms.some(function (room) {
-                return checkedRooms.includes(room);
-            });
-
-             event.setProp('display', showEvent ? 'auto' : 'none');
+    var filteredEvents = events.filter(function (event) {
+        var eventRooms = event.extendedProps.room || []; // Access event's room property
+        return eventRooms.some(function (room) {
+            return checkedRooms.includes(room);
         });
-    }
+    });
+    console.log(filteredEvents);
+    calendar.setOption('events', filteredEvents);
+}
 
     function filterRedEvents() {
         var roomsToCheck = new Set();

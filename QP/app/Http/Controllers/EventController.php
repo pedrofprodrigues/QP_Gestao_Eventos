@@ -26,7 +26,7 @@ class EventController extends Controller
         $statuses = Status::all();
 
 
-        $dishes = ['appetizer' => $appetizers, 'soup' => $soups, 'fish' => $fishs, 'meat' => $meats, 'dessert' => $desserts];
+        $dishes = [['Entradas','appetizer' => $appetizers], ['Sopa','soup' => $soups], ['Peixe','fish' => $fishs], ['Carne','meat' => $meats], ['Sobremesas','dessert' => $desserts]];
         return view('events.create', compact('dishes', 'eventTypes', 'statuses'));
     }
 
@@ -106,7 +106,9 @@ class EventController extends Controller
         $statuses = Status::all();
         $event = Event::find($id);
 
-        $dishes = ['appetizer' => $appetizers, 'soup' => $soups, 'fish' => $fishs, 'meat' => $meats, 'dessert' => $desserts];
+        
+        $dishes = [['Entradas','appetizer' => $appetizers], ['Sopa','soup' => $soups], ['Peixe','fish' => $fishs], ['Carne','meat' => $meats], ['Sobremesas','dessert' => $desserts]];
+
 
         return view('events.edit', compact('event', 'eventTypes', 'dishes', 'statuses'));
     }
@@ -138,55 +140,29 @@ class EventController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'num_person' => 'required|integer',
-            'num_children' => 'required|integer',
-            'num_free_children' => 'required|integer',
-            'event_date_start' => 'required|date',
-            'event_date_end' => 'required|date',
-            'event_type' => 'required|integer',
-            'appetizer' => 'required|integer',
-            'soup' => 'required|integer',
-            'fish' => 'required|integer',
-            'meat' => 'required|integer',
-            'dessert' => 'required|integer',
-            'decoration' => 'required|string|max:255',
-            'entertainment' => 'nullable|string',
-            'extras' => 'nullable|string',
-            'qp_resp_name' => 'required|string|max:255',
-            'qp_resp_contact' => 'required|string|max:255',
-            'client_resp_name' => 'required|string|max:255',
-            'client_resp_contact' => 'required|string|max:255',
-            'client_resp_email' => 'required|email|max:255',
-            'current_status' => 'required|integer',
-            'lago_extras' => 'nullable|string',
-            'auditorio_extras' => 'nullable|string',
-            'jardim_extras' => 'nullable|string',
-        ]);
         $event = Event::findOrFail($id);
         $event->update([
-            'name' => $validated['name'],
-            'num_person' => $validated['num_person'],
-            'num_children' => $validated['num_children'],
-            'num_free_children' => $validated['num_free_children'],
-            'event_date_start' => $validated['event_date_start'],
-            'event_date_end' => $validated['event_date_end'],
-            'event_type' => $validated['event_type'],
-            'appetizer' => $validated['appetizer'],
-            'soup' => $validated['soup'],
-            'fish' => $validated['fish'],
-            'meat' => $validated['meat'],
-            'dessert' => $validated['dessert'],
-            'decoration' => $validated['decoration'],
-            'entertainment' => $validated['entertainment'],
-            'extras' => $validated['extras'],
-            'qp_resp_name' => $validated['qp_resp_name'],
-            'qp_resp_contact' => $validated['qp_resp_contact'],
-            'client_resp_name' => $validated['client_resp_name'],
-            'client_resp_contact' => $validated['client_resp_contact'],
-            'client_resp_email' => $validated['client_resp_email'],
-            'current_status' => $validated['current_status'],
+            'name' => $request['name'],
+            'num_person' => $request['num_person'],
+            'num_children' => $request['num_children'],
+            'num_free_children' => $request['num_free_children'],
+            'event_date_start' => $request['event_date_start'],
+            'event_date_end' => $request['event_date_end'],
+            'event_type' => $request['event_type'],
+            'appetizer' => $request['appetizer'],
+            'soup' => $request['soup'],
+            'fish' => $request['fish'],
+            'meat' => $request['meat'],
+            'dessert' => $request['dessert'],
+            'decoration' => $request['decoration'],
+            'entertainment' => $request['entertainment'],
+            'extras' => $request['extras'],
+            'qp_resp_name' => $request['qp_resp_name'],
+            'qp_resp_contact' => $request['qp_resp_contact'],
+            'client_resp_name' => $request['client_resp_name'],
+            'client_resp_contact' => $request['client_resp_contact'],
+            'client_resp_email' => $request['client_resp_email'],
+            'current_status' => $request['current_status'],
             'lago_extras' => $request['lago_extras'],
             'auditorio_extras' => $request['auditorio_extras'],
             'jardim_extras' => $request['jardim_extras'],
