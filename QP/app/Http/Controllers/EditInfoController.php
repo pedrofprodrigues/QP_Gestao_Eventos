@@ -116,7 +116,7 @@ class EditInfoController extends Controller
             $file->storeAs('uploads/photos', $filename, 'public');
             $validated['galery'] = $filename;
             $currentGalery = $classToMatch::where('id', $request->id)->value('galery');
-            $newGalery = $currentGalery . ',' . $validated['galery'];
+            $newGalery = $currentGalery . $validated['galery']. ',';
             $classToMatch::where('id', $request->id)->update([
                 'galery' => $newGalery,
             ]);
@@ -127,7 +127,6 @@ class EditInfoController extends Controller
             'details' => $validated['details'],
             'price' => $validated['price'],
         ]);
-
         return redirect()->route('editTables')->with('success', "{$validated['name']} modificado com sucesso.");
     }
 
@@ -153,16 +152,36 @@ class EditInfoController extends Controller
     {
 
         $classToMatch = match ($option) {
-            'Appetizers' => Appetizer::class,
-            'Soups' => Soup::class,
-            'Fishes' => Fish::class,
-            'Meats' => Meat::class,
-            'Desserts' => Dessert::class,
+            'Entradas' => Appetizer::class,
+            'Sopas' => Soup::class,
+            'Peixes' => Fish::class,
+            'Carnes' => Meat::class,
+            'Sobremesas' => Dessert::class,
             'Event types' => EventType::class,
             'Statuses' => Status::class,
             default => 'default result',
         };
         $classToMatch::where('id', $request->id)->delete();
         return redirect()->route('editTables')->with('success', "{$request->option} foi eliminado com sucesso.");
+    }
+    public function deleteItem($option, $id, Request $request)
+    {
+
+        $classToMatch = match ($option) {
+            'Entradas' => Appetizer::class,
+            'Sopas' => Soup::class,
+            'Peixes' => Fish::class,
+            'Carnes' => Meat::class,
+            'Sobremesas' => Dessert::class,
+            default => 'default result',
+        };
+
+        $targetOption = $classToMatch::where('id', $id)->get();
+        $updatedString = str_replace($request->item . ",", "", $targetOption[0]->galery);
+        $classToMatch::where('id', $id)
+            ->update([
+                'galery' => $updatedString,
+            ]);
+        return redirect()->route('editTables')->with('success', "Foto {$request->item} foi eliminada com sucesso.");
     }
 }

@@ -28,7 +28,8 @@ Route::get('/editInfo', [EditInfoController::class, 'show'])->name('editTables')
 Route::get('/editFoodInfo/{option}', [EditInfoController::class, 'editFoods'])->name('editFoodInfo');
 Route::get('/editOtherInfo/{option}', [EditInfoController::class, 'editOtherOptions'])->name('editOtherOptionsInfo');
 
-Route::post('/editFoodInfo/{option}', [EditInfoController::class, 'saveEditFoods'])->name('saveEditFoodInfo');
+Route::put('/editFoodInfo/{option}', [EditInfoController::class, 'saveEditFoods'])->name('saveEditFoodInfo');
 Route::post('/editOtherInfo/{option}', [EditInfoController::class, 'saveEditOthers'])->name('saveEditOtherInfo');
+Route::put('/editInfo/{option}/{id}', [EditInfoController::class, 'deleteItem'])->name('deleteItem');
 
 Route::delete('/editInfo/{option}/delete', [EditInfoController::class, 'deleteOption'])->name('deleteOption');

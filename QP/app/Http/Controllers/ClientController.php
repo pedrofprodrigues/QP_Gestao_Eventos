@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Appetizer;
 use App\Models\Meat;
 use App\Models\Fish;
