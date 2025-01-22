@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'Event List')
+@section('title', 'Lista de eventos')
 
 @section('content')
 @if(session('success'))
@@ -10,7 +10,7 @@
 </div>
 @endif
 
-    <h1 class="mb-4">All Events</h1>
+    <h1 class="mb-4">Lista de eventos</h1>
 
     <!-- Filters Form -->
     <form method="GET" action="{{ route('events.getAll') }}" class="mb-4">
@@ -18,16 +18,16 @@
             <div class="form-group">
 
                 <div class="col-md-3">
-                    <label for="event_name" class="form-label">Event Name:</label>
-                    <input type="text" id="event_name" name="event_name" class="form-control" value="{{ request('event_name') }}" placeholder="Search by name">
+                    <label for="event_name" class="form-label">Nome do evento:</label>
+                    <input type="text" id="event_name" name="event_name" class="form-control" value="{{ request('event_name') }}" placeholder="Escreva nome do evento">
                 </div>
 
 
 
             <div class="col-md-3">
-                <label for="status" class="form-label">Status:</label>
+                <label for="status" class="form-label">Estado da reserva:</label>
                 <select id="status" name="status" class="form-control">
-                    <option value="">Select Status</option>
+                    <option value="">Selecionar por estado de reserva</option>
                     @foreach($statuses as $status)
                         <option value="{{ $status->id }}" {{ request('status') == $status->id ? 'selected' : '' }}>
                             {{ ucfirst($status->option) }}
@@ -36,9 +36,9 @@
                 </select>
             </div>
             <div class="col-md-3">
-                <label for="event_type" class="form-label">Status:</label>
+                <label for="event_type" class="form-label">Tipo de evento:</label>
                 <select id="event_type" name="event_type" class="form-control">
-                    <option value="">Select Event Type</option>
+                    <option value="">Selecionar por tipo de evento</option>
                     @foreach($eventTypes as $eventType)
                         <option value="{{ $eventType->id }}" {{ request('event_type') == $eventType->id ? 'selected' : '' }}>
                             {{ ucfirst($eventType->option) }}
@@ -48,41 +48,37 @@
             </div>
 
             <div class="col-md-3">
-                <label for="event_date" class="form-label">Event Date:</label>
+                <label for="event_date" class="form-label">Data de evento:</label>
                 <input type="date" id="event_date" name="event_date" class="form-control" value="{{ request('event_date') }}">
             </div>
 
             <div class="col-md-3 align-self-end">
-                <button type="submit" class="btn btn-primary ml-2">Filter</button>
+                <button type="submit" class="btn btn-primary ml-2">Filtrar</button>
             </div>
 
-            <a href="{{ route('events.getAll') }}" class="btn btn-secondary ml-2">Clear Filters</a>
+            <a href="{{ route('events.getAll') }}" class="btn btn-secondary ml-2">Limpar todos filtros</a>
 
         </div>
-
-
-
-
         </div>
     </form>
 
     <!-- Events Table -->
     @if($events->isEmpty())
-        <p>No events found.</p>
+        <p>Não há eventos marcados.</p>
     @else
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Event Name</th>
-                    <th scope="col">Guests (A/C/FC)</th>
-                    <th scope="col">Rooms</th>
-                    <th scope="col">Start Date</th>
-                    <th scope="col">End Date</th>
-                    <th scope="col">Event Type</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Client Name / Contact</th>
-                    <th scope="col">QP Manager</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">Nome do evento</th>
+                    <th scope="col">Nº pessoas(A/C/B)</th>
+                    <th scope="col">Salas</th>
+                    <th scope="col">Data de início</th>
+                    <th scope="col">Data do fim</th>
+                    <th scope="col">Tipo de evento</th>
+                    <th scope="col">Estado da reserva</th>
+                    <th scope="col">Nome / Contacto do cliente</th>
+                    <th scope="col">Gestor</th>
+                    <th scope="col">Acções</th>
                 </tr>
             </thead>
             <tbody>
@@ -115,7 +111,7 @@
                                 <form action="{{ route('events.destroy', ['id' => $event->id]) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this event?');">Delete</button>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem a certeza que quer apagar o evento?');">Delete</button>
                                 </form>
                             </div>
                         </td>

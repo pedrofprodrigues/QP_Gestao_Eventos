@@ -66,25 +66,25 @@
     <fieldset>
         <legend>Selecionar Menu</legend>
 
-@foreach($dishes as $dishData)
-    @php
-        $display = $dishData[0]; 
-        $dishArray = collect($dishData)->except(0);
-        $dishName = $dishArray->keys()->first();
-        $dishList = $dishArray->first(); 
-    @endphp
-    <div class="mid">
-        <label for="{{ $dishName }}">{{ $display }}</label>
-        <select id="{{ $dishName }}" name="{{ $dishName }}">
-            <option value=""> -- NA --</option>
-            @foreach($dishList as $singleDish)
-                <option value="{{ $singleDish->id }}" {{ old($dishName, $event->{$dishName}) == $singleDish->id ? 'selected' : '' }}>
-                    {{ $singleDish->name }}
-                </option>
-            @endforeach
-        </select>
-    </div>
-@endforeach
+        @foreach($dishes as $dishData)
+            @php
+                $display = $dishData[0]; 
+                $dishArray = collect($dishData)->except(0);
+                $dishName = $dishArray->keys()->first();
+                $dishList = $dishArray->first(); 
+            @endphp
+            <div class="mid">
+                <label for="{{ $dishName }}">{{ $display }}</label>
+                <select id="{{ $dishName }}" name="{{ $dishName }}">
+                    <option value=""> -- NA --</option>
+                    @foreach($dishList as $singleDish)
+                        <option value="{{ $singleDish->id }}" {{ old($dishName, $event->{$dishName}) == $singleDish->id ? 'selected' : '' }}>
+                            {{ $singleDish->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+        @endforeach
         
 
     </fieldset>
@@ -207,8 +207,8 @@
 
     <!-- Status -->
     <fieldset>
-        <legend>Event Status</legend>
-        <label for="status">Estado da reserva:</label>
+        <legend>Estado da reserva</legend>
+        <label for="status">Status:</label>
         <select id="current_status" name="current_status" required>
             @foreach($statuses as $status)
             <option value="{{ $status->id }}" {{ old('status', $event->current_status) == $status->id ? 'selected' : '' }}>{{ ucfirst($status->option) }}</option>

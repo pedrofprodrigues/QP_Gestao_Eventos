@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'Edit information')
+@section('title', 'Editar informações')
 
 @section('content')
 @if(session('success'))
@@ -14,7 +14,7 @@
 
 <fieldset>
 
-        <legend>Food options</legend>
+        <legend>Opções dos pratos</legend>
         @foreach($food_options as $option)
             <div class="mid">
                 <a class="bt-edit" href="{{ route('editFoodInfo', ['option' => $option]) }}" >{{$option}}</a>
@@ -25,7 +25,7 @@
 
 <fieldset>
 
-    <legend>Other options</legend>
+    <legend>Outras opções</legend>
     @foreach($other_options as $option)
         <div class="mid">
             <a class="bt-edit" href="{{ route('editOtherOptionsInfo', ['option' => $option]) }}" >{{$option}}</a>

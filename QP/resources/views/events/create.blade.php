@@ -1,7 +1,7 @@
 @extends('app')
 
 
-@section('title', 'Create Event')
+@section('title', 'Novo Evento')
 
 
 @section('content')
@@ -14,28 +14,28 @@
         </ul>
     </div>
 @endif
-<h1>Create Event</h1>
+<h1>Novo Evento</h1>
 
 <form id="eventForm" action="{{ route('events.store') }}" method="POST" onsubmit="validateDates(event)">
     @csrf
     <!-- Event Details -->
     <fieldset>
-        <legend>Event Details</legend>
+        <legend>Detalhes do Evento</legend>
         <div class="mid">
-            <label for="name">Event Name:</label>
+            <label for="name">Nome do Evento:</label>
             <input type="text" id="name" name="name" required>
         </div>
         <div class="form-group">
     <div class="mid">
-        <label for="num_person">Number of Adults:</label>
+        <label for="num_person">Número de adultos (+10 anos):</label>
         <input type="number" id="num_person" name="num_person" required>
     </div>
     <div class="mid">
-        <label for="num_children">Number of Children:</label>
+        <label for="num_children">Número de crianças (3 - 9 anos):</label>
         <input type="number" id="num_children" name="num_children" required>
     </div>
     <div class="mid">
-        <label for="num_free_children">Number of Free Children:</label>
+        <label for="num_free_children">Número de bebés (0 - 2 anos):</label>
         <input type="number" id="num_free_children" name="num_free_children" required>
     </div>
 </div>
@@ -43,15 +43,15 @@
 <div class="form-group">
 
 <div class="mid">
-        <label for="event_date_start">Event Start Date:</label>
+        <label for="event_date_start">Data de início</label>
         <input type="datetime-local" id="event_date_start" name="event_date_start" required>
     </div>
     <div class="mid">
-        <label for="event_date_end">Event End Date:</label>
+        <label for="event_date_end">Data de fim:</label>
         <input type="datetime-local" id="event_date_end" name="event_date_end" required>
     </div>
     <div class="mid">
-        <label for="event_type">Event Type:</label>
+        <label for="event_type">Tipo de evento:</label>
         <select id="event_type" name="event_type" required>
             @foreach($eventTypes as $eventType)
             <option value="{{ $eventType->id }}">{{ $eventType->option }}</option>
@@ -62,11 +62,8 @@
 
     <!-- Menu Selection -->
     <fieldset>
-        <legend>Menu Selection</legend>
+        <legend>Selecionar Menu</legend>
 
-
-
-        
 @foreach($dishes as $dishData)
     @php
         $display = $dishData[0]; 
@@ -87,9 +84,8 @@
 
     </fieldset>
 
-    <!-- Room Selection -->
     <fieldset>
-        <legend>Room and Venue Selection</legend>
+        <legend>Escolha de espaços</legend>
         <div class="checkbox-group">
             @php
             $rooms = [
@@ -104,12 +100,12 @@
                 'Jardim' => 'jardim'
             ];
             $auditoriumExtras = [
-                'Stage' => 'stage',
-                'Music' => 'auditorium_music',
+                'Palco' => 'stage',
+                'Música' => 'auditorium_music',
             ];
             $lakeExtras = [
-                'Firework' => 'fire',
-                'Music' => 'lake_music',
+                'Fogo de artifício' => 'fire',
+                'Música' => 'lake_music',
             ];
             @endphp
     
@@ -121,27 +117,27 @@
             @endforeach
         </div>
     
-        <label for="lago_extras">Lago Extras:</label>
+        <label for="lago_extras">Extras para Lago:</label>
         @foreach($lakeExtras as $lakeExtra => $lakeVariable)
             <label>
                 <input type="hidden" name="{{ $lakeVariable }}" value="off">
                 <input type="checkbox" name="{{ $lakeVariable }}" value="on"> {{ $lakeExtra }}
             </label>
         @endforeach
-        <span><b>Other:</b></span>
+        <span><b>Outros:</b></span>
         <textarea id="lago_extras" name="lago_extras" disabled></textarea>
     
-        <label for="auditorio_extras">Auditorio Extras:</label>
+        <label for="auditorio_extras">Extras para Auditorio:</label>
         @foreach($auditoriumExtras as $auditoriumExtra => $auditoriumVariable)
             <label>
                 <input type="hidden" name="{{ $auditoriumVariable }}" value="off">
                 <input type="checkbox" name="{{ $auditoriumVariable }}" value="on"> {{ $auditoriumExtra }}
             </label>
         @endforeach
-        <span><b>Other:</b></span>
+        <span><b>Outros:</b></span>
         <textarea id="auditorio_extras" name="auditorio_extras"></textarea>
         
-        <label for="jardim_extras">Jardim Extras:</label>
+        <label for="jardim_extras">Extras para Jardim:</label>
         <textarea id="jardim_extras" name="jardim_extras"></textarea>
     </fieldset>
     
@@ -150,12 +146,12 @@
 
     <!-- Other Details -->
     <fieldset>
-        <legend>Additional Information</legend>
-        <label for="decoration">Decoration:</label>  
+        <legend>Informação adicional</legend>
+        <label for="decoration">Decoração:</label>  
         
         <input type="text" id="decoration" name="decoration" required>
 
-        <label for="entertainment">Entertainment:</label>
+        <label for="entertainment">Entertenimento:</label>
         <textarea id="entertainment" name="entertainment" required></textarea>
 
         <label for="extras">Extras:</label>
@@ -164,37 +160,36 @@
 
     <!-- Responsible Persons -->
     <fieldset>
-        <legend>Contact Information</legend>
+        <legend>Informações de contacto</legend>
 
         <div class="form-group">
     <div class="mid">
-        <label for="qp_resp_name">Quinta's Responsible Person:</label>
+        <label for="qp_resp_name">Gestor responsável:</label>
         <input type="text" id="qp_resp_name" name="qp_resp_name" required>
     </div>
     <div class="mid">
-        <label for="qp_resp_contact">Quinta's Contact Number:</label>
+        <label for="qp_resp_contact">Contacto do gestor:</label>
         <input type="text" id="qp_resp_contact" name="qp_resp_contact" required>
     </div>
 </div>
 <div class="form-group">
     <div class="mid">
-        <label for="client_resp_name">Client's Responsible Person:</label>
+        <label for="client_resp_name">Nome do cliente:</label>
         <input type="text" id="client_resp_name" name="client_resp_name" required>
     </div>
     <div class="mid">
-        <label for="client_resp_contact">Client's Contact Number:</label>
+        <label for="client_resp_contact">Contaco telefónico do cliente:</label>
         <input type="text" id="client_resp_contact" name="client_resp_contact" required>
     </div>
     <div class="mid">
-        <label for="client_resp_email">Client's Email:</label>
+        <label for="client_resp_email">Email do cliente:</label>
         <input type="email" id="client_resp_email" name="client_resp_email" required>
     </div>
 </div>  
     </fieldset>
 
-    <!-- Status -->
     <fieldset>
-        <legend>Event Status</legend>
+        <legend>Estado da reserva</legend>
         <label for="status">Status:</label>
         <select id="current_status" name="current_status" required>
             @foreach($statuses as $status)
@@ -203,7 +198,7 @@
         </select>
     </fieldset>
 
-    <button class="button-go" type="submit">Submit Event</button>
+    <button class="button-go" type="submit">Gravar novo evento</button>
 </form>
 
 

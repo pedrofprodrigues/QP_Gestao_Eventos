@@ -33,9 +33,9 @@
         @endforeach
 
         <div class="button-group">
-            <button type="button" class="btn btn-secondary ml-2" onclick="checkAll()">Check All</button>
-            <button type="button" class="btn btn-secondary ml-2" onclick="uncheckAll()">Uncheck All</button>
-            <button type="button" class="btn btn-primary ml-2" onclick="filterRedEvents()">Show Collisions only</button>
+            <button type="button" class="btn btn-secondary ml-2" onclick="checkAll()">Selecionar todas as salas</button>
+            <button type="button" class="btn btn-secondary ml-2" onclick="uncheckAll()">Remover todas as salas</button>
+            <button type="button" class="btn btn-primary ml-2" onclick="filterRedEvents()">Mostrar só eventos em conflito</button>
         </div>
     </div>
 
@@ -51,22 +51,27 @@
         calendar = new EventCalendar(calendarEl, {
             view: 'timeGridWeek',
             startWeekDay: 1,
+            eventTimeFormat: { hour: 'numeric', minute: '2-digit', hour12: false },
+            slotLabelFormat: { hour: 'numeric', minute: '2-digit', hour12: false },
+            titleFormat: function(date) {return date.toLocaleDateString('pt-PT', { month: 'long', day: 'numeric' });  },
             allDaySlot: false,
+            buttonText:{resourceTimeGridDay: 'Vista diária', today:'Hoje', timeGridWeek:'Vista semanal'},
             headerToolbar: {
                 start: 'prev,next today',
                 center: 'title',
                 end: 'timeGridWeek, resourceTimeGridDay',
             },
+            dayHeaderFormat: function(date) {return date.toLocaleDateString('pt-PT', { day: 'numeric',  weekday: 'long' });  },
             resources:[
                 {id:1 , title:'Dinis', eventBackgroundColor:"#010669"},
                 {id:2 , title:'Isabel', eventBackgroundColor:'#45012e'},
                 {id:3 , title:'Joao III', eventBackgroundColor:'#069101'},
                 {id:4 , title:'Leonor', eventBackgroundColor:'#000000'},
                 {id:5 , title:'Espelhos', eventBackgroundColor:'#024200'},
-                {id:6 , title:'Atrium', eventBackgroundColor:'#01423d'},
-                {id:7 , title:'Lago', eventBackgroundColor:'#000cf7'},
+                {id:6 , title:'Atrium', eventBackgroundColor:'#3492eb'},
+                {id:7 , title:'Lago', eventBackgroundColor:'#4f4f4f'},
                 {id:8 , title:'Auditorio', eventBackgroundColor:'#02b0a1'},
-                {id:9 , title:'Jardim', eventBackgroundColor:'blue'},
+                {id:9 , title:'Jardim', eventBackgroundColor:'#362f7d'},
             ],
             slotDuration: 3600,
             minTime: '00:00',

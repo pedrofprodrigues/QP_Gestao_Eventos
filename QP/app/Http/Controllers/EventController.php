@@ -63,7 +63,7 @@ class EventController extends Controller
         $collisionEventIds = array_unique($collisionEventIds);
         $event->collision_ids = json_encode($collisionEventIds);
         $event->save();
-        return redirect()->route('events.getAll');
+        return redirect()->route('events.getAll')->with('success', "-- $event->name -- gravado com sucesso.");
     }
 
     public function home()
@@ -133,7 +133,7 @@ class EventController extends Controller
 
         $event->deleted = true;
         $event->save();
-        return redirect()->route('events.getAll')->with('success', "{$event->name} event deleted successfully.");
+        return redirect()->route('events.getAll')->with('success', "-- {$event->name} -- eliminado com sucesso.");
     }
 
 
@@ -220,6 +220,6 @@ class EventController extends Controller
         $event->collision_ids = json_encode($collisionEventIds);
         $event->save();
 
-        return redirect()->route('events.getAll')->with('success', "$event->name event was updated successfully.");
+        return redirect()->route('events.getAll')->with('success', "-- $event->name -- modificado com sucesso.");
     }
 }

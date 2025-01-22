@@ -167,8 +167,82 @@
             outline: none;
             border-color: #ba604c;
         }
+.modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
 
-        /* Responsive Adjustments */
+    .modal-content {
+        position: relative;
+        top:70px;
+        margin: auto;
+        padding: 20px;
+        width: 60%;
+        background:#d1d1d1;
+        text-align: center;
+    }
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        color: black;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .carousel-container {
+        position: relative;
+        max-width: 100%;
+        height: 700px; 
+        overflow: hidden; 
+    }
+
+    .carousel-container img {
+        max-width: 100%;
+        max-height: 100%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; 
+        display: block;
+        margin: auto;
+    }
+
+    .carousel-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .carousel-nav.prev {
+        left: 10px;
+    }
+
+    .carousel-nav.next {
+        right: 10px;
+    }
+     .modal-description {
+        margin-top: 20px;
+        font-size: 22px;
+          font-style: italic;
+        color: #333;
+        text-align: center;
+    }
+
+
         @media (max-width: 1300px) {
             .food-item {
                 width: calc(50% - 20px);
@@ -199,42 +273,14 @@
 
 </head>
 <body>
-
-    <?php
-    //dump($appetizers);
-    ?>
-    <div class="head">
+<div class="head">
     <div class="titulo">
         <h1>Menu</h1>
         <p>Selecione um opção em cada categoria</p>
     </div>
 </div>
-    <div class="container">
-        <div>
-        <div class="client">
-            <h3>As suas informações</h3>
-            <div class="mid">
-                <label for="client_resp_name">Nome:</label>
-                <input type="text" id="client_resp_name" name="client_resp_name" required>
-            </div>
-            <div class="mid">
-                <label for="client_resp_contact">Contacto telefónico:</label>
-                <input type="text" id="client_resp_contact" name="client_resp_contact" required>
-            </div>
-            <div class="mid">
-                <label for="client_resp_email">Email:</label>
-                <input type="email" id="client_resp_email" name="client_resp_email" required>
-            </div>
-            <div class="mid">
-                <label for="num_person">Adultos:</label>
-                <input type="number" id="num_person" name="num_person" min="0" required>
-            </div>
-            <div class="mid">
-                <label for="num_children">Crianças (+3 anos):</label>
-                <input type="number" id="num_children" name="num_children" min="0" required>
-            </div>
-        </div>
-
+<div class="container">
+    <div>
         <div class="cart">
             <h3>As suas escolhas</h3>
             <ul id="cart-list">
@@ -242,64 +288,79 @@
             </ul>
         </div>
     </div>
-        <div class="categories">
-
-            <h2>Entradas</h2>
-            <div class="category">
-                @foreach ($appetizers as $appetizer)
-
-                    <li class="food-item">
-                        <img src="{{ asset('storage/uploads/photos/'.$appetizer->photo) }}" alt="Food" />
-                        <button onclick="addToCart('Entradas', '{{$appetizer->name}}')">{{$appetizer->name}}</button>
-                    </li>
-                @endforeach
-            </div>
-
-            <h2>Sopas</h2>
-            <div class="category">
-                @foreach ($soups as $soup)
-                    <li class="food-item">
-                        <img src="{{ asset('storage/uploads/photos/'.$soup->photo) }}" alt="Food" />
-                        <button onclick="addToCart('Sopa', '{{$soup->name}}')">{{$soup->name}}</button>
-                    </li>
-                @endforeach
-            </div>
-            <h2>Prato Carne</h2>
-            <div class="category">
-
-                @foreach ($meats as $meat)
-                    <li class="food-item">
-                        <img src="{{ asset('storage/uploads/photos/'.$meat->photo) }}" alt="Food" />
-                        <button onclick="addToCart('Carne', '{{$meat->name}}')">{{$meat->name}}</button>
-                    </li>
-                @endforeach
-            </div>
-            <h2>Prato Peixe</h2>
-            <div class="category">
-
-                @foreach ($fishs as $fish)
-                    <li class="food-item">
-                        <img src="{{ asset('storage/uploads/photos/'.$fish->photo)  }}" alt="Food" />
-                        <button onclick="addToCart('Peixe', '{{$fish->name}}')">{{$fish->name}}</button>
-                    </li>
-                @endforeach
-            </div>
-            <h2>Sobremesas</h2>
-            <div class="category">
-
-                @foreach ($desserts as $dessert)
-                    <li class="food-item">
-                        <img src="{{ asset('storage/uploads/photos/'.$dessert->photo)  }}" alt="Food" />
-                        <button onclick="addToCart('Sobremesa', '{{$dessert->name}}')">{{$dessert->name}}</button>
-                    </li>
-                @endforeach
-            </div>
-
+    <div class="categories">
+    <h2>Entradas</h2>
+    <div class="category">
+            @foreach ($appetizers as $appetizer)
+            <li class="food-item">
+                <img src="{{ asset('storage/uploads/photos/'.$appetizer->photo) }}" 
+                     alt="Food" 
+                     onclick="openModal('{{ $appetizer->galery }}', '{{ $appetizer->details }}')" />
+                <button onclick="addToCart('Entradas', '{{ $appetizer->name }}')">{{ $appetizer->name }}</button>
+            </li>
+            @endforeach
         </div>
+        <h2>Sopas</h2>
+        <div class="category">
+            @foreach ($soups as $soup)
+                <li class="food-item">
+                    <img src="{{ asset('storage/uploads/photos/'.$soup->photo) }}"
+                         alt="Food"
+                         onclick="openModal('{{ $soup->galery }}', '{{ $soup->details }}')" />
+                    <button onclick="addToCart('Sopa', '{{$soup->name}}')">{{$soup->name}}</button>
+                </li>
+            @endforeach
+        </div>
+        <h2>Prato Carne</h2>
+        <div class="category">
 
+            @foreach ($meats as $meat)
+                <li class="food-item">
+                    <img src="{{ asset('storage/uploads/photos/'.$meat->photo) }}" alt="Food"
+                     onclick="openModal('{{ $meat->galery }}', '{{ $meat->details }}')" />
+                    <button onclick="addToCart('Carne', '{{$meat->name}}')">{{$meat->name}}</button>
+                </li>
+            @endforeach
+        </div>
+        <h2>Prato Peixe</h2>
+        <div class="category">
 
+            @foreach ($fishs as $fish)
+                <li class="food-item">
+                    <img src="{{ asset('storage/uploads/photos/'.$fish->photo)  }}" alt="Food"
+                     onclick="openModal('{{ $fish->galery }}', '{{ $fish->details }}')" />
+                    <button onclick="addToCart('Peixe', '{{$fish->name}}')">{{$fish->name}}</button>
+                </li>
+            @endforeach
+        </div>
+        <h2>Sobremesas</h2>
+        <div class="category">
 
+            @foreach ($desserts as $dessert)
+                <li class="food-item">
+                    <img src="{{ asset('storage/uploads/photos/'.$dessert->photo)  }}" alt="Food"
+                     onclick="openModal('{{ $dessert->galery }}', '{{ $dessert->details }}')" />
+                    <button onclick="addToCart('Sobremesa', '{{$dessert->name}}')">{{$dessert->name}}</button>
+                </li>
+            @endforeach
+        </div>
     </div>
+</div>
+
+
+<div id="imageModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()"></span>
+        <div class="carousel-container">
+            <img id="carouselImage" src="" alt="Carousel Image" />
+            <button class="carousel-nav prev" onclick="prevImage()">&#10094;</button>
+            <button class="carousel-nav next" onclick="nextImage()">&#10095;</button>
+        </div>
+                <div id="modalDescription" class="modal-description"></div>
+    </div>
+</div>
+
+
 </body>
 
 
@@ -339,6 +400,69 @@ function updateCartDisplay() {
 document.addEventListener('DOMContentLoaded', function () {
     updateCartDisplay();
 });
+
+
+
+
+let currentIndex = 0;
+let carouselImages = [];
+
+function openModal(carouselString,description) {
+    const modal = document.getElementById('imageModal');
+    const carouselImage = document.getElementById('carouselImage');
+        const modalDescription = document.getElementById('modalDescription');
+
+
+    if (!modal || !carouselImage) {
+        console.error('Modal or carousel element not found in the DOM.');
+        return;
+    }
+    modalDescription.textContent = description;
+    carouselImages = carouselString.split(',').map(image => image.trim());
+
+    if (carouselImages.length === 0) {
+        console.error('No images to display in the carousel.');
+        return;
+    }
+
+    // Reset the current index and display the first image
+    currentIndex = 0;
+    carouselImage.src = `/storage/uploads/photos/${carouselImages[currentIndex]}`;
+
+    // Show modal
+    modal.style.display = 'block';
+}
+
+function closeModal() {
+    const modal = document.getElementById('imageModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+function nextImage() {
+    if (carouselImages.length === 0) return;
+
+    currentIndex = (currentIndex + 1) % carouselImages.length; // Cycle to the next image
+    const carouselImage = document.getElementById('carouselImage');
+    carouselImage.src = `/storage/uploads/photos/${carouselImages[currentIndex]}`;
+}
+
+function prevImage() {
+    if (carouselImages.length === 0) return;
+
+    currentIndex = (currentIndex - 1 + carouselImages.length) % carouselImages.length; // Cycle to the previous image
+    const carouselImage = document.getElementById('carouselImage');
+    carouselImage.src = `/storage/uploads/photos/${carouselImages[currentIndex]}`;
+}
+
+// Close modal if user clicks outside of it
+window.onclick = function (event) {
+    const modal = document.getElementById('imageModal');
+    if (event.target === modal) {
+        closeModal();
+    }
+};
 
 </script>
 
