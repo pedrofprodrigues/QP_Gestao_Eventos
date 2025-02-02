@@ -9,7 +9,6 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 
-<input type="text" id="datePicker" placeholder="Seleccionar data" />
 @php
     $rooms = [
         'Dinis' => 'room_dinis',
@@ -38,6 +37,7 @@
             <button type="button" class="btn btn-primary ml-2" onclick="filterRedEvents()">Mostrar só eventos em conflito</button>
         </div>
     </div>
+<input type="text" id="datePicker" placeholder="Seleccionar data" />
 
     <div class="calendar" id="calendar"></div>
 

@@ -18,7 +18,7 @@ Route::delete('/events/{id}/destroy', [EventController::class, 'destroy'])->name
 
 Route::get('/calendar', [CalendarController::class, 'show'])->name('calendar');
 
-Route::get('/client', [ClientController::class, 'show']);
+Route::get('/client', [ClientController::class, 'show'])->name('client');
 
 Route::post('/editInfo/{option}/createFood', [EditInfoController::class, 'createFood'])->name('newFoodInfo');
 Route::post('/editInfo/{option}/createOther', [EditInfoController::class, 'createOther'])->name('newOtherInfo');

@@ -18,6 +18,7 @@ class Meat extends Model
         'price',
         'details',
         'photo',
+        'galery',
 
     ];
     public function events()

@@ -35,7 +35,7 @@ class EditInfoController extends Controller
         if (!$classToMatch) {
             return redirect()->back()->with('error', 'Invalid option selected.');
         }
-        $newInfo = $classToMatch::create($request->only(['name', 'details', 'price', 'photo']));
+        $newInfo = $classToMatch::create($request->only(['name', 'details', 'price' ]));
         $newInfo->save();
         return redirect()->route('editTables')->with('success', "{$newInfo->name} criado com sucesso.");
     }
@@ -136,8 +136,8 @@ class EditInfoController extends Controller
     {
 
         $classToMatch = match ($option) {
-            'Event types' => EventType::class,
-            'Statuses' => Status::class,
+            'Tipos de evento' => EventType::class,
+            'Estados da reserva' => Status::class,
             default => 'default result',
         };
 

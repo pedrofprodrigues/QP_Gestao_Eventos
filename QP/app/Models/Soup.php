@@ -18,6 +18,7 @@ class Soup extends Model
         'price',
         'details',
         'photo',
+        'galery',
 
     ];
     public function events()

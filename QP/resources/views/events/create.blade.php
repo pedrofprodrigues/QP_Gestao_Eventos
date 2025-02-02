@@ -64,6 +64,7 @@
     <fieldset>
         <legend>Selecionar Menu</legend>
 
+<button class="button-go" onclick="openPopup()">Abrir escolha de menu para cliente</button>
 @foreach($dishes as $dishData)
     @php
         $display = $dishData[0]; 
@@ -71,6 +72,8 @@
         $dishName = $dishArray->keys()->first();
         $dishList = $dishArray->first(); 
     @endphp
+
+ 
     <div class="mid">
         <label for="{{ $dishName }}">{{ $display }}</label>
         <select id="{{ $dishName }}" name="{{ $dishName }}">
@@ -204,7 +207,31 @@
 
 
 <script>
-        function validateDates(event) {
+        
+     function openPopup() {
+                let popup = window.open("{{route('client')}}", "popupWindow", "width=1400,height=900");
+            }
+
+   function receiveValue(value) {
+console.log(value);
+            if (value[0]!=="none"){
+                document.getElementById("appetizer").value = value[0];
+            }
+            if (value[1]!=="none"){
+                document.getElementById("soup").value = value[1];
+            }
+            if (value[2]!=="none"){
+                document.getElementById("fish").value = value[2];
+            }
+            if (value[3]!=="none"){
+                document.getElementById("meat").value = value[3];
+            }
+            if (value[4]!=="none"){
+                document.getElementById("dessert").value = value[4];
+            }
+        }
+            
+     function validateDates(event) {        
             event.preventDefault();
             const startDate = new Date(document.getElementById('event_date_start').value);
             const endDate = new Date(document.getElementById('event_date_end').value);

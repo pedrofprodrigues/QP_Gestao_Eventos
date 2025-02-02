@@ -12,7 +12,7 @@
             z-index: 1000;
             background-image: url('{{ asset('storage/quinta.png') }}');
             width:100%;
-            height:250px;
+            height:150px;
             background-size: cover;
             background-position: center;
             color: white;
@@ -21,7 +21,7 @@
         .head{
             position:fixed;
             top: 0%;
-            height:270px;
+            height:170px;
             width:100%;
             background-color: #000000;
         }
@@ -36,7 +36,7 @@
 
         .container {
             display: flex;
-            margin-top: 300px;
+            margin-top: 200px;
             justify-content: space-evenly;
             padding: 20px;
 
@@ -275,8 +275,8 @@
 <body>
 <div class="head">
     <div class="titulo">
-        <h1>Menu</h1>
-        <p>Selecione um opção em cada categoria</p>
+        <h1></h1>
+        <p></p>
     </div>
 </div>
 <div class="container">
@@ -286,6 +286,8 @@
             <ul id="cart-list">
                 <li>Nome</li>
             </ul>
+
+    <button onclick="sendValue({{$appetizers}},{{$soups}},{{$fishs}},{{$meats}},{{$desserts}})">Submit</button>
         </div>
     </div>
     <div class="categories">
@@ -311,17 +313,6 @@
                 </li>
             @endforeach
         </div>
-        <h2>Prato Carne</h2>
-        <div class="category">
-
-            @foreach ($meats as $meat)
-                <li class="food-item">
-                    <img src="{{ asset('storage/uploads/photos/'.$meat->photo) }}" alt="Food"
-                     onclick="openModal('{{ $meat->galery }}', '{{ $meat->details }}')" />
-                    <button onclick="addToCart('Carne', '{{$meat->name}}')">{{$meat->name}}</button>
-                </li>
-            @endforeach
-        </div>
         <h2>Prato Peixe</h2>
         <div class="category">
 
@@ -330,6 +321,17 @@
                     <img src="{{ asset('storage/uploads/photos/'.$fish->photo)  }}" alt="Food"
                      onclick="openModal('{{ $fish->galery }}', '{{ $fish->details }}')" />
                     <button onclick="addToCart('Peixe', '{{$fish->name}}')">{{$fish->name}}</button>
+                </li>
+            @endforeach
+        </div>
+        <h2>Prato Carne</h2>
+        <div class="category">
+
+            @foreach ($meats as $meat)
+                <li class="food-item">
+                    <img src="{{ asset('storage/uploads/photos/'.$meat->photo) }}" alt="Food"
+                     onclick="openModal('{{ $meat->galery }}', '{{ $meat->details }}')" />
+                    <button onclick="addToCart('Carne', '{{$meat->name}}')">{{$meat->name}}</button>
                 </li>
             @endforeach
         </div>
@@ -369,8 +371,8 @@
 let cart = {
     Entradas: "Por escolher",
     Sopa: "Por escolher",
-    Carne: "Por escolher",
     Peixe: "Por escolher",
+    Carne: "Por escolher",
     Sobremesa: "Por escolher",
 };
 
@@ -420,16 +422,15 @@ function openModal(carouselString,description) {
     modalDescription.textContent = description;
     carouselImages = carouselString.split(',').map(image => image.trim());
 
-    if (carouselImages.length === 0) {
-        console.error('No images to display in the carousel.');
+    if (carouselImages.length <= 1) {
         return;
     }
 
-    // Reset the current index and display the first image
+    if (carouselImages.length > 1) {    
+        carouselImages =  carouselImages.slice(0, -1);                
+    }
     currentIndex = 0;
     carouselImage.src = `/storage/uploads/photos/${carouselImages[currentIndex]}`;
-
-    // Show modal
     modal.style.display = 'block';
 }
 
@@ -456,7 +457,6 @@ function prevImage() {
     carouselImage.src = `/storage/uploads/photos/${carouselImages[currentIndex]}`;
 }
 
-// Close modal if user clicks outside of it
 window.onclick = function (event) {
     const modal = document.getElementById('imageModal');
     if (event.target === modal) {
@@ -464,7 +464,54 @@ window.onclick = function (event) {
     }
 };
 
-</script>
+   
+    function sendValue(appetizers, soups, fishs, meats, desserts) {
+        let options=[];
+
+        options.push("none");
+        appetizers.forEach( item => {
+            if (item.name === cart["Entradas"]){
+                options.pop();
+                options.push(item.id);
+            }
+        });   
+        console.log(options);
+        options.push("none");
+        soups.forEach( item => {
+            if (item.name === cart["Sopa"]){
+                options.pop();
+                options.push(item.id);
+            }
+        });   
+        console.log(options);
+        options.push("none");
+        fishs.forEach( item => {
+            if (item.name === cart["Peixe"]){
+                options.pop();
+                options.push(item.id);
+            }
+        });   
+        console.log(options);
+        options.push("none");
+        meats.forEach( item => {
+            if (item.name === cart["Carne"]){
+                options.pop();
+                options.push(item.id);
+            }
+        });   
+        console.log(options);
+        options.push("none");
+        desserts.forEach( item => {
+            if (item.name === cart["Sobremesa"]){
+                options.pop();
+                options.push(item.id);
+            }
+        });   
+        console.log(options);
+         window.opener.receiveValue(options);
+         //window.close();
+        }
+    </script>
 
 </body>
 </html>

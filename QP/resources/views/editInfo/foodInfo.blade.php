@@ -3,7 +3,15 @@
 @section('title', 'Edição Informações')
 
 @section('content')
-
+<style>
+.remove-button {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 18px;
+    cursor: pointer;
+}
+</style>
 <h2>Modificar {{$option}}</h2>
 
 @if ($errors->any())
@@ -29,9 +37,6 @@
             
             <label for="price">Preço</label>
             <input type="number" step=".01" id="price" name="price" required >
-            
-            <label for="photo">Foto</label>
-            <input type="text" id="photo" name="photo" required>
             
             <button class="button-go" type="submit">Gravar</button>
         </div>
@@ -63,6 +68,9 @@
 
             <label for="photo-{{ $info_detail->id }}">Foto</label>
             <input type="file" id="photo-{{ $info_detail->id }}" name="photo" accept="image/*">
+            
+            <br>
+            <br>
 
             <label for="galery-{{ $info_detail->id }}">Galeria</label>
             <input type="file" id="galery-{{ $info_detail->id }}" name="galery" accept="image/*" multiple>
