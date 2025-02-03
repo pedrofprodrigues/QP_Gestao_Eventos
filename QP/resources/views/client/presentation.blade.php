@@ -57,6 +57,19 @@
             font-size: 1.2em;
             color: #666;
         }
+.button-go {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #015911;
+    color: #fff;
+    border: none;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
         .categories {
 
@@ -167,80 +180,80 @@
             outline: none;
             border-color: #ba604c;
         }
-.modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.8);
-    }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
 
-    .modal-content {
-        position: relative;
-        top:70px;
-        margin: auto;
-        padding: 20px;
-        width: 60%;
-        background:#d1d1d1;
-        text-align: center;
-    }
+        .modal-content {
+            position: relative;
+            top:70px;
+            margin: auto;
+            padding: 20px;
+            width: 60%;
+            background:#d1d1d1;
+            text-align: center;
+        }
 
-    .close {
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        color: black;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-    }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: black;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-    .carousel-container {
-        position: relative;
-        max-width: 100%;
-        height: 700px; 
-        overflow: hidden; 
-    }
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            height: 700px; 
+            overflow: hidden; 
+        }
 
-    .carousel-container img {
-        max-width: 100%;
-        max-height: 100%;
-        width: 100%;
-        height: 100%;
-        object-fit: cover; 
-        display: block;
-        margin: auto;
-    }
+        .carousel-container img {
+            max-width: 100%;
+            max-height: 100%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            display: block;
+            margin: auto;
+        }
 
-    .carousel-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: rgba(0, 0, 0, 0.5);
-        color: white;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-    }
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
 
-    .carousel-nav.prev {
-        left: 10px;
-    }
+        .carousel-nav.prev {
+            left: 10px;
+        }
 
-    .carousel-nav.next {
-        right: 10px;
-    }
-     .modal-description {
-        margin-top: 20px;
-        font-size: 22px;
-          font-style: italic;
-        color: #333;
-        text-align: center;
-    }
+        .carousel-nav.next {
+            right: 10px;
+        }
+         .modal-description {
+            margin-top: 20px;
+            font-size: 22px;
+              font-style: italic;
+            color: #333;
+            text-align: center;
+        }
 
 
         @media (max-width: 1300px) {
@@ -287,7 +300,7 @@
                 <li>Nome</li>
             </ul>
 
-    <button onclick="sendValue({{$appetizers}},{{$soups}},{{$fishs}},{{$meats}},{{$desserts}})">Submit</button>
+    <button class="button-go" onclick="sendValue({{$appetizers}},{{$soups}},{{$fishs}},{{$meats}},{{$desserts}})">Confirmar</button>
         </div>
     </div>
     <div class="categories">
@@ -298,7 +311,7 @@
                 <img src="{{ asset('storage/uploads/photos/'.$appetizer->photo) }}" 
                      alt="Food" 
                      onclick="openModal('{{ $appetizer->galery }}', '{{ $appetizer->details }}')" />
-                <button onclick="addToCart('Entradas', '{{ $appetizer->name }}')">{{ $appetizer->name }}</button>
+                <button onclick="addToCart('Entradas', '{{ $appetizer->name }}')">{{ $appetizer->name }} - {{ $appetizer->price }} </button>
             </li>
             @endforeach
         </div>
@@ -309,7 +322,7 @@
                     <img src="{{ asset('storage/uploads/photos/'.$soup->photo) }}"
                          alt="Food"
                          onclick="openModal('{{ $soup->galery }}', '{{ $soup->details }}')" />
-                    <button onclick="addToCart('Sopa', '{{$soup->name}}')">{{$soup->name}}</button>
+                    <button onclick="addToCart('Sopa', '{{$soup->name}}')">{{$soup->name}} - {{ $soup->price }} </button>
                 </li>
             @endforeach
         </div>
@@ -320,7 +333,7 @@
                 <li class="food-item">
                     <img src="{{ asset('storage/uploads/photos/'.$fish->photo)  }}" alt="Food"
                      onclick="openModal('{{ $fish->galery }}', '{{ $fish->details }}')" />
-                    <button onclick="addToCart('Peixe', '{{$fish->name}}')">{{$fish->name}}</button>
+                    <button onclick="addToCart('Peixe', '{{$fish->name}}')">{{$fish->name}} - {{ $fish->price }} </button>
                 </li>
             @endforeach
         </div>
@@ -331,7 +344,7 @@
                 <li class="food-item">
                     <img src="{{ asset('storage/uploads/photos/'.$meat->photo) }}" alt="Food"
                      onclick="openModal('{{ $meat->galery }}', '{{ $meat->details }}')" />
-                    <button onclick="addToCart('Carne', '{{$meat->name}}')">{{$meat->name}}</button>
+                    <button onclick="addToCart('Carne', '{{$meat->name}}')">{{$meat->name}} - {{ $meat->price }} </button>
                 </li>
             @endforeach
         </div>
@@ -342,7 +355,7 @@
                 <li class="food-item">
                     <img src="{{ asset('storage/uploads/photos/'.$dessert->photo)  }}" alt="Food"
                      onclick="openModal('{{ $dessert->galery }}', '{{ $dessert->details }}')" />
-                    <button onclick="addToCart('Sobremesa', '{{$dessert->name}}')">{{$dessert->name}}</button>
+                    <button onclick="addToCart('Sobremesa', '{{$dessert->name}}')">{{$dessert->name}} - {{ $dessert->price }} </button>
                 </li>
             @endforeach
         </div>
@@ -368,101 +381,101 @@
 
     <script>
 
-let cart = {
-    Entradas: "Por escolher",
-    Sopa: "Por escolher",
-    Peixe: "Por escolher",
-    Carne: "Por escolher",
-    Sobremesa: "Por escolher",
-};
+    let cart = {
+        Entradas: "Por escolher",
+        Sopa: "Por escolher",
+        Peixe: "Por escolher",
+        Carne: "Por escolher",
+        Sobremesa: "Por escolher",
+    };
 
-function addToCart(category, item) {
-    cart[category] = item;
-    updateCartDisplay();
-}
+    function addToCart(category, item) {
+        cart[category] = item;
+        updateCartDisplay();
+    }
 
-function updateCartDisplay() {
-    const cartList = document.getElementById('cart-list');
-    cartList.innerHTML = '';
+    function updateCartDisplay() {
+        const cartList = document.getElementById('cart-list');
+        cartList.innerHTML = '';
 
-    for (const category in cart) {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${category}: ${cart[category]}`;
-        if (cart[category] === "Por escolher")
-        {
-            listItem.style.color = "#ba604c";
-        }else{
-            listItem.style.color = "#1c4f28";
+        for (const category in cart) {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${category}: ${cart[category]}`;
+            if (cart[category] === "Por escolher")
+            {
+                listItem.style.color = "#ba604c";
+            }else{
+                listItem.style.color = "#1c4f28";
+            }
+            cartList.appendChild(listItem);
         }
-        cartList.appendChild(listItem);
-    }
-}
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    updateCartDisplay();
-});
-
-
-
-
-let currentIndex = 0;
-let carouselImages = [];
-
-function openModal(carouselString,description) {
-    const modal = document.getElementById('imageModal');
-    const carouselImage = document.getElementById('carouselImage');
-        const modalDescription = document.getElementById('modalDescription');
-
-
-    if (!modal || !carouselImage) {
-        console.error('Modal or carousel element not found in the DOM.');
-        return;
-    }
-    modalDescription.textContent = description;
-    carouselImages = carouselString.split(',').map(image => image.trim());
-
-    if (carouselImages.length <= 1) {
-        return;
     }
 
-    if (carouselImages.length > 1) {    
-        carouselImages =  carouselImages.slice(0, -1);                
+
+    document.addEventListener('DOMContentLoaded', function () {
+        updateCartDisplay();
+    });
+
+
+
+
+    let currentIndex = 0;
+    let carouselImages = [];
+
+    function openModal(carouselString,description) {
+        const modal = document.getElementById('imageModal');
+        const carouselImage = document.getElementById('carouselImage');
+            const modalDescription = document.getElementById('modalDescription');
+
+
+        if (!modal || !carouselImage) {
+            console.error('Modal or carousel element not found in the DOM.');
+            return;
+        }
+        modalDescription.textContent = description;
+        carouselImages = carouselString.split(',').map(image => image.trim());
+
+        if (carouselImages.length <= 1) {
+            return;
+        }
+
+        if (carouselImages.length > 1) {    
+            carouselImages =  carouselImages.slice(0, -1);                
+        }
+        currentIndex = 0;
+        carouselImage.src = `/storage/uploads/photos/${carouselImages[currentIndex]}`;
+        modal.style.display = 'block';
     }
-    currentIndex = 0;
-    carouselImage.src = `/storage/uploads/photos/${carouselImages[currentIndex]}`;
-    modal.style.display = 'block';
-}
 
-function closeModal() {
-    const modal = document.getElementById('imageModal');
-    if (modal) {
-        modal.style.display = 'none';
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
     }
-}
 
-function nextImage() {
-    if (carouselImages.length === 0) return;
+    function nextImage() {
+        if (carouselImages.length === 0) return;
 
-    currentIndex = (currentIndex + 1) % carouselImages.length; // Cycle to the next image
-    const carouselImage = document.getElementById('carouselImage');
-    carouselImage.src = `/storage/uploads/photos/${carouselImages[currentIndex]}`;
-}
-
-function prevImage() {
-    if (carouselImages.length === 0) return;
-
-    currentIndex = (currentIndex - 1 + carouselImages.length) % carouselImages.length; // Cycle to the previous image
-    const carouselImage = document.getElementById('carouselImage');
-    carouselImage.src = `/storage/uploads/photos/${carouselImages[currentIndex]}`;
-}
-
-window.onclick = function (event) {
-    const modal = document.getElementById('imageModal');
-    if (event.target === modal) {
-        closeModal();
+        currentIndex = (currentIndex + 1) % carouselImages.length; 
+        const carouselImage = document.getElementById('carouselImage');
+        carouselImage.src = `/storage/uploads/photos/${carouselImages[currentIndex]}`;
     }
-};
+
+    function prevImage() {
+        if (carouselImages.length === 0) return;
+
+        currentIndex = (currentIndex - 1 + carouselImages.length) % carouselImages.length; 
+        const carouselImage = document.getElementById('carouselImage');
+        carouselImage.src = `/storage/uploads/photos/${carouselImages[currentIndex]}`;
+    }
+
+    window.onclick = function (event) {
+        const modal = document.getElementById('imageModal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
 
    
     function sendValue(appetizers, soups, fishs, meats, desserts) {
