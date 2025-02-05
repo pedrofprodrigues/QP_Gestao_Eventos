@@ -6,22 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
-         .titulo {
-            position: fixed;
-            top: 0%;
-            z-index: 1000;
-            background-image: url('{{ asset('storage/quinta.png') }}');
-            width:100%;
-            height:150px;
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-        }
         .head{
             position:fixed;
+            z-index:1000;
+            background-size: cover;
+            background-position: center;
             top: 0%;
-            height:170px;
+            background-image: url('{{ asset('storage/quinta.png') }}');
+            display: flex;
+            height:220px;
             width:100%;
             background-color: #000000;
         }
@@ -36,10 +29,9 @@
 
         .container {
             display: flex;
-            margin-top: 200px;
-            justify-content: space-evenly;
+            margin-top: 250px;
+            justify-content: center;
             padding: 20px;
-
         }
 
         header {
@@ -57,24 +49,25 @@
             font-size: 1.2em;
             color: #666;
         }
-.button-go {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    background-color: #015911;
-    color: #fff;
-    border: none;
-    margin-top: 20px;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+
+        .button-go {
+               width: 100%;
+               margin-top: 10px;
+               padding: 10px;
+               background-color: #015911;
+               color: white;
+               border: none;
+               border-radius: 5px;
+               cursor: pointer;
+         }
+
+        .button-go:hover {
+                background-color: #013d0d;
+        }
 
         .categories {
-
             margin-bottom: 40px;
-            width: 60%;
+            position:relative;
         }
 
         .categories h2 {
@@ -87,26 +80,27 @@
 
         .category {
             display: flex;
-            justify-content: space-evenly;
+            flex-grow: 1;
             gap: 20px;
             margin-bottom: 40px;
+            justify-content: center;
+            flex-grow:1;
         }
 
         .food-item {
             list-style: none;
+            flex-grow:1;
             width: calc(25% - 20px);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             background-color: #fff;
             border-radius: 8px;
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .food-item img {
             width: 100%;
-
-            min-width: 300px;
-            height: 300px;
+            min-width: 500px;
+            height: 500px;
             object-fit: cover;
         }
 
@@ -119,64 +113,63 @@
             padding: 10px;
             font-size: 1em;
             cursor: pointer;
-            transition: background-color 0.3s;
         }
 
         .food-item button:hover {
             background-color: #a15443;
         }
 
-
-         .cart, .client {
-            position: fixed;
-
-
-        }
-
         .cart {
-            left: 80px;
-        }
-        .client {
-            top:550px;
-            left: 80px;
-        }
-
-        .cart h3, .client h3 {
-            font-size: 1.5em;
-            color: #1c4f28;
-            margin-bottom: 15px;
+        position:relative;
+        width:400px;
+        left: 20px;
+        padding: 10px;
+        
         }
 
-        #cart-list {
-            list-style: none;
-            padding: 0;
+        .cart table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-        #cart-list li {
-            margin: 5px 0;
-            font-size: 1em;
+        .cart td, .cart th {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+            white-space: nowrap;
+            height:40px; 
         }
 
-        .client .mid {
+        .cart th {
+            background-color: #ba604c;
+            color: white;
+        }
+
+        .total-row {
+                font-weight: bold;
+                background-color: #f8f8f8;
+        }
+
+        .mid {
             display: flex;
             flex-direction: column;
             margin-bottom: 15px;
         }
 
-        .client .mid label {
+         .mid label {
             font-size: 1em;
             color: #666;
             margin-bottom: 5px;
         }
 
-        .client .mid input {
+        .mid input {
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 1em;
         }
 
-        .client .mid input:focus {
+        .mid input:focus {
             outline: none;
             border-color: #ba604c;
         }
@@ -255,114 +248,182 @@
             text-align: center;
         }
 
-
-        @media (max-width: 1300px) {
-            .food-item {
-                width: calc(50% - 20px);
-            }
-
-            .cart, .client {
-                width: 13%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .food-item {
-                width: 100%;
-            }
-
-            .cart, .client {
-                width: 90%;
-                position: relative;
-                margin-bottom: 20px;
-            }
-
-            .container {
-                margin-top: 20px;
-            }
-        }
+ .tabs {
+      position:relative;
+      left:50px;
+      width: 100%;
+      max-width: 1500px;
+      margin: auto;
+    }
+    .tab-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      border-bottom: 2px solid #ba604c;
+      margin-bottom: 20px;
+    }
+    .tab-list li {
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 1.2em;
+      color: #1c4f28;
+      border: 2px solid transparent;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      transition: background-color 0.3s, border-color 0.3s;
+    }
+    .tab-list li:hover {
+      background-color: #f0f0f0;
+    }
+    .tab-list li.active {
+      background-color: #fff;
+      border: 2px solid #ba604c;
+      border-bottom: none;
+      font-weight: bold;
+    }
+    /* Tab Content Styles */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    .tab-content.active {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
     </style>
 
 
 </head>
 <body>
 <div class="head">
-    <div class="titulo">
-        <h1></h1>
-        <p></p>
-    </div>
 </div>
-<div class="container">
-    <div>
-        <div class="cart">
-            <h3>As suas escolhas</h3>
-            <ul id="cart-list">
-                <li>Nome</li>
-            </ul>
 
+
+  <div class="container">
+
+
+<div class="cart">
+    <h3>Resumo do Pedido</h3>
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Escolhido</th>
+            <th>Preço (€)</th>
+        </tr>
+        <tr>
+            <td>Entrada</td>
+            <td id="appetizer">Por escolher</td>
+            <td id="appetizer_price">NA</td>
+        </tr>
+        <tr>
+            <td>Sopa</td>
+            <td id="soup">Por escolher</td>
+            <td id="soup_price">NA</td>
+        </tr>
+        <tr>
+            <td>Peixe</td>
+            <td id="fish">Por escolher</td>
+            <td id="fish_price">NA</td>
+        </tr>
+        <tr>
+            <td>Carne</td>
+            <td id="meat">Por escolher</td>
+            <td id="meat_price">NA</td>
+        </tr>
+        <tr>
+            <td>Sobremesa</td>
+            <td id="dessert">Por escolher</td>
+            <td id="dessert_price">NA</td>
+        </tr>
+        <tr class="total-row">
+            <td colspan="2">Total</td>
+            <td id="total_price">0.00€</td>
+        </tr>
+        </table>
     <button class="button-go" onclick="sendValue({{$appetizers}},{{$soups}},{{$fishs}},{{$meats}},{{$desserts}})">Confirmar</button>
-        </div>
+</div>    
+
+
+    <div class="tabs">
+      <!-- Tab Navigation -->
+      <ul class="tab-list">
+        <li class="active" data-tab="entradas">Entradas</li>
+        <li data-tab="sopas">Sopas</li>
+        <li data-tab="peixe">Prato Peixe</li>
+        <li data-tab="carne">Prato Carne</li>
+        <li data-tab="sobremesa">Sobremesas</li>
+      </ul>
+      <!-- Tab Contents -->
+      <!-- Entradas (Appetizers) -->
+      <div id="entradas" class="tab-content active">
+        @foreach ($appetizers as $appetizer)
+          <li class="food-item">
+            <img src="{{ asset('storage/uploads/photos/'.$appetizer->photo) }}"
+                 alt="Food"
+                 onclick="openModal('{{ $appetizer->galery }}', '{{ $appetizer->details }}')" />
+            <button onclick="addToCart('appetizer', '{{ $appetizer->name }}', '{{ $appetizer->price }}')">
+              {{ $appetizer->name }} - {{ $appetizer->price }}€
+            </button>
+          </li>
+        @endforeach
+      </div>
+      <!-- Sopas (Soups) -->
+      <div id="sopas" class="tab-content">
+        @foreach ($soups as $soup)
+          <li class="food-item">
+            <img src="{{ asset('storage/uploads/photos/'.$soup->photo) }}"
+                 alt="Food"
+                 onclick="openModal('{{ $soup->galery }}', '{{ $soup->details }}')" />
+            <button onclick="addToCart('soup', '{{ $soup->name }}', '{{ $soup->price }}')">
+              {{ $soup->name }} - {{ $soup->price }}€
+            </button>
+          </li>
+        @endforeach
+      </div>
+      <!-- Prato Peixe (Fish) -->
+      <div id="peixe" class="tab-content">
+        @foreach ($fishs as $fish)
+          <li class="food-item">
+            <img src="{{ asset('storage/uploads/photos/'.$fish->photo) }}"
+                 alt="Food"
+                 onclick="openModal('{{ $fish->galery }}', '{{ $fish->details }}')" />
+            <button onclick="addToCart('fish', '{{ $fish->name }}', '{{ $fish->price }}')">
+              {{ $fish->name }} - {{ $fish->price }}€
+            </button>
+          </li>
+        @endforeach
+      </div>
+      <!-- Prato Carne (Meat) -->
+      <div id="carne" class="tab-content">
+        @foreach ($meats as $meat)
+          <li class="food-item">
+            <img src="{{ asset('storage/uploads/photos/'.$meat->photo) }}"
+                 alt="Food"
+                 onclick="openModal('{{ $meat->galery }}', '{{ $meat->details }}')" />
+            <button onclick="addToCart('meat', '{{ $meat->name }}', '{{ $meat->price }}')">
+              {{ $meat->name }} - {{ $meat->price }}€
+            </button>
+          </li>
+        @endforeach
+      </div>
+      <!-- Sobremesas (Desserts) -->
+      <div id="sobremesa" class="tab-content">
+        @foreach ($desserts as $dessert)
+          <li class="food-item">
+            <img src="{{ asset('storage/uploads/photos/'.$dessert->photo) }}"
+                 alt="Food"
+                 onclick="openModal('{{ $dessert->galery }}', '{{ $dessert->details }}')" />
+            <button onclick="addToCart('dessert', '{{ $dessert->name }}', '{{ $dessert->price }}')">
+              {{ $dessert->name }} - {{ $dessert->price }}€
+            </button>
+          </li>
+        @endforeach
+      </div>
     </div>
-    <div class="categories">
-    <h2>Entradas</h2>
-    <div class="category">
-            @foreach ($appetizers as $appetizer)
-            <li class="food-item">
-                <img src="{{ asset('storage/uploads/photos/'.$appetizer->photo) }}" 
-                     alt="Food" 
-                     onclick="openModal('{{ $appetizer->galery }}', '{{ $appetizer->details }}')" />
-                <button onclick="addToCart('Entradas', '{{ $appetizer->name }}')">{{ $appetizer->name }} - {{ $appetizer->price }} </button>
-            </li>
-            @endforeach
-        </div>
-        <h2>Sopas</h2>
-        <div class="category">
-            @foreach ($soups as $soup)
-                <li class="food-item">
-                    <img src="{{ asset('storage/uploads/photos/'.$soup->photo) }}"
-                         alt="Food"
-                         onclick="openModal('{{ $soup->galery }}', '{{ $soup->details }}')" />
-                    <button onclick="addToCart('Sopa', '{{$soup->name}}')">{{$soup->name}} - {{ $soup->price }} </button>
-                </li>
-            @endforeach
-        </div>
-        <h2>Prato Peixe</h2>
-        <div class="category">
-
-            @foreach ($fishs as $fish)
-                <li class="food-item">
-                    <img src="{{ asset('storage/uploads/photos/'.$fish->photo)  }}" alt="Food"
-                     onclick="openModal('{{ $fish->galery }}', '{{ $fish->details }}')" />
-                    <button onclick="addToCart('Peixe', '{{$fish->name}}')">{{$fish->name}} - {{ $fish->price }} </button>
-                </li>
-            @endforeach
-        </div>
-        <h2>Prato Carne</h2>
-        <div class="category">
-
-            @foreach ($meats as $meat)
-                <li class="food-item">
-                    <img src="{{ asset('storage/uploads/photos/'.$meat->photo) }}" alt="Food"
-                     onclick="openModal('{{ $meat->galery }}', '{{ $meat->details }}')" />
-                    <button onclick="addToCart('Carne', '{{$meat->name}}')">{{$meat->name}} - {{ $meat->price }} </button>
-                </li>
-            @endforeach
-        </div>
-        <h2>Sobremesas</h2>
-        <div class="category">
-
-            @foreach ($desserts as $dessert)
-                <li class="food-item">
-                    <img src="{{ asset('storage/uploads/photos/'.$dessert->photo)  }}" alt="Food"
-                     onclick="openModal('{{ $dessert->galery }}', '{{ $dessert->details }}')" />
-                    <button onclick="addToCart('Sobremesa', '{{$dessert->name}}')">{{$dessert->name}} - {{ $dessert->price }} </button>
-                </li>
-            @endforeach
-        </div>
-    </div>
-</div>
-
-
+  </div>
 <div id="imageModal" class="modal" style="display: none;">
     <div class="modal-content">
         <span class="close" onclick="closeModal()"></span>
@@ -374,50 +435,43 @@
                 <div id="modalDescription" class="modal-description"></div>
     </div>
 </div>
-
-
 </body>
 
+<script>
 
-    <script>
-
-    let cart = {
-        Entradas: "Por escolher",
-        Sopa: "Por escolher",
-        Peixe: "Por escolher",
-        Carne: "Por escolher",
-        Sobremesa: "Por escolher",
-    };
-
-    function addToCart(category, item) {
-        cart[category] = item;
-        updateCartDisplay();
-    }
-
-    function updateCartDisplay() {
-        const cartList = document.getElementById('cart-list');
-        cartList.innerHTML = '';
-
-        for (const category in cart) {
-            const listItem = document.createElement('li');
-            listItem.textContent = `${category}: ${cart[category]}`;
-            if (cart[category] === "Por escolher")
-            {
-                listItem.style.color = "#ba604c";
-            }else{
-                listItem.style.color = "#1c4f28";
-            }
-            cartList.appendChild(listItem);
-        }
-    }
-
-
-    document.addEventListener('DOMContentLoaded', function () {
-        updateCartDisplay();
+    const tabs = document.querySelectorAll('.tab-list li');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Remove active classes from all tabs and contents
+        tabs.forEach(item => item.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+        
+        // Add active class to clicked tab and corresponding content
+        tab.classList.add('active');
+        const tabId = tab.getAttribute('data-tab');
+        document.getElementById(tabId).classList.add('active');
+      });
     });
+ function updateTotalPrice() {
+        let prices = [
+            parseFloat(document.getElementById("appetizer_price").textContent) || 0,
+            parseFloat(document.getElementById("soup_price").textContent) || 0,
+            parseFloat(document.getElementById("fish_price").textContent) || 0,
+            parseFloat(document.getElementById("meat_price").textContent) || 0,
+            parseFloat(document.getElementById("dessert_price").textContent) || 0
+        ];
+        
+        let total = prices.reduce((acc, price) => acc + price, 0);
+        document.getElementById("total_price").textContent = total.toFixed(2)+"€";
+    }
 
-
-
+    function addToCart(category, name, price) {
+        document.getElementById(category).textContent = name;
+        document.getElementById(category + "_price").textContent = parseFloat(price).toFixed(2);
+        updateTotalPrice();
+    }
 
     let currentIndex = 0;
     let carouselImages = [];
@@ -425,8 +479,7 @@
     function openModal(carouselString,description) {
         const modal = document.getElementById('imageModal');
         const carouselImage = document.getElementById('carouselImage');
-            const modalDescription = document.getElementById('modalDescription');
-
+        const modalDescription = document.getElementById('modalDescription');
 
         if (!modal || !carouselImage) {
             console.error('Modal or carousel element not found in the DOM.');
@@ -477,53 +530,35 @@
         }
     };
 
-   
-    function sendValue(appetizers, soups, fishs, meats, desserts) {
-        let options=[];
 
-        options.push("none");
-        appetizers.forEach( item => {
-            if (item.name === cart["Entradas"]){
-                options.pop();
-                options.push(item.id);
-            }
-        });   
-        console.log(options);
-        options.push("none");
-        soups.forEach( item => {
-            if (item.name === cart["Sopa"]){
-                options.pop();
-                options.push(item.id);
-            }
-        });   
-        console.log(options);
-        options.push("none");
-        fishs.forEach( item => {
-            if (item.name === cart["Peixe"]){
-                options.pop();
-                options.push(item.id);
-            }
-        });   
-        console.log(options);
-        options.push("none");
-        meats.forEach( item => {
-            if (item.name === cart["Carne"]){
-                options.pop();
-                options.push(item.id);
-            }
-        });   
-        console.log(options);
-        options.push("none");
-        desserts.forEach( item => {
-            if (item.name === cart["Sobremesa"]){
-                options.pop();
-                options.push(item.id);
-            }
-        });   
-        console.log(options);
-         window.opener.receiveValue(options);
-         //window.close();
-        }
+function sendValue(appetizers, soups, fishs, meats, desserts) {
+    let categories = {
+        "Entradas": appetizers,
+        "Sopa": soups,
+        "Peixe": fishs,
+        "Carne": meats,
+        "Sobremesa": desserts
+    };
+
+ let cart = {
+            "Entradas": document.getElementById('appetizer')?.textContent,
+            "Sopa": document.getElementById('soup').textContent,
+            "Peixe": document.getElementById('fish').textContent,
+            "Carne": document.getElementById('meat').textContent,
+            "Sobremesa": document.getElementById('dessert').textContent
+        };
+
+    let options = Object.keys(categories).map(category => {
+        let item = categories[category].find(item => item.name === cart[category]);
+        return item ? item.id : "none";
+    });
+
+    window.opener.receiveValue(options);
+    // window.close();
+}
+
+
+
     </script>
 
 </body>

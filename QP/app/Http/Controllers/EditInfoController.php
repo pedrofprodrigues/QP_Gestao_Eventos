@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Appetizer;
 use App\Models\Meat;
@@ -176,6 +177,11 @@ class EditInfoController extends Controller
             default => 'default result',
         };
 
+        
+         $filePath = 'uploads/photos/' . $request->item; 
+            if (Storage::exists($filePath)) {
+                Storage::delete($filePath);
+            }
         $targetOption = $classToMatch::where('id', $id)->get();
         $updatedString = str_replace($request->item . ",", "", $targetOption[0]->galery);
         $classToMatch::where('id', $id)
