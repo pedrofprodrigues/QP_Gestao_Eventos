@@ -122,6 +122,7 @@
         .cart {
         position:relative;
         width:400px;
+        max-width:400px;
         left: 20px;
         padding: 10px;
         
