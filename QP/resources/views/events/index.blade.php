@@ -52,6 +52,13 @@
                 <input type="date" id="event_date" name="event_date" class="form-control" value="{{ request('event_date') }}">
             </div>
 
+
+            
+            <div class="col-md-3">
+                <input type="checkbox" id="show_deleted" name="show_deleted" value="1" {{ request('show_deleted') ? 'checked' : '' }}>
+                <label for="show_deleted">Mostrar eventos apagados</label>
+            </div>
+
             <div class="col-md-3 align-self-end">
                 <button type="submit" class="btn btn-primary ml-2">Filtrar</button>
             </div>
@@ -104,18 +111,26 @@
                         <td>{{ ucfirst($event->client_resp_name) }} / {{ $event->client_resp_contact }}</td>
                         <td>{{ ucfirst($event->qp_resp_name) }}</td>
 
-                        <td>
+                       <td>
                             <div class="form-group">
                                 <a href="{{ route('events.edit', ['id' => $event->id]) }}" class="btn btn-secondary btn-sm">Edit</a>
-
-                                <form action="{{ route('events.destroy', ['id' => $event->id]) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem a certeza que quer apagar o evento?');">Delete</button>
-                                </form>
+                                @if($event->deleted_at)
+                                    <form action="{{ route('events.restore', ['id' => $event->id]) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Tem a certeza que quer restaurar o evento?');">Undelete</button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('events.destroy', ['id' => $event->id]) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem a certeza que quer apagar o evento?');">Delete</button>
+                                    </form>
+                                @endif
                             </div>
                         </td>
-                    </tr>
+                       
+                   </tr>
                 @endforeach
             </tbody>
         </table>

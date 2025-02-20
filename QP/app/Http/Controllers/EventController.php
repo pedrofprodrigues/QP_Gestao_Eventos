@@ -90,7 +90,14 @@ class EventController extends Controller
         if ($request->has('event_type') && $request->event_type) {
             $query->where('event_type', $request->event_type);
         }
-        $events = $query->where('deleted', false)->with(['event_type_value', 'status_value'])->get();
+
+         if ($request->has('show_deleted')) {
+            $query->where('deleted', true);
+        } else {
+            $query->where('deleted', false); 
+        }
+
+        $events = $query->with(['event_type_value', 'status_value'])->get();
 
         return view('events.index', compact('events', 'statuses', 'eventTypes'));
     }
@@ -137,6 +144,15 @@ class EventController extends Controller
     }
 
 
+    public function restore($id)
+    {
+        $event = Event::findOrFail($id);
+        $event->deleted = false;
+        $event->save();
+        
+
+        return redirect()->route('events.getAll')->with('success', 'Evento restaurado com sucesso!');
+    }
 
     public function update(Request $request, $id)
     {
