@@ -13,8 +13,7 @@
         <a href="{{ route('events.getAll') }}" class="btn-nav">Lista de eventos</a>
         <a href="{{ route('calendar') }}" class="btn-nav">Calendário</a>
         <a href="{{ route('editTables') }}" class="btn-nav">Editar informações</a>
-        <a href="{{ route('logout') }}" class="btn-nav">logout</a>
-
+        <a href="{{ route('events.data_management') }}" class="btn-nav">Dados</a>
     </nav>
 
     <div class="container" >

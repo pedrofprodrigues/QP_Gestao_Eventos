@@ -5,11 +5,9 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\EditInfoController;
 use App\Http\Controllers\ClientController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::redirect('/', '/events');
 
-Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     
 Route::middleware('auth.basic')->group(function () {
         Route::get('/events', [EventController::class, 'index'])->name('events.getAll');
@@ -30,5 +28,8 @@ Route::middleware('auth.basic')->group(function () {
         Route::post('/editOtherInfo/{option}', [EditInfoController::class, 'saveEditOthers'])->name('saveEditOtherInfo');
         Route::put('/editInfo/{option}/{id}', [EditInfoController::class, 'deleteItem'])->name('deleteItem');
         Route::delete('/editInfo/{option}/delete', [EditInfoController::class, 'deleteOption'])->name('deleteOption');
+        Route::get('/data', [EventController::class, 'data_management'])->name('events.data_management');
+        Route::get('/database', [EventController::class, 'export'])->name('events.export');
+        Route::post('/import-events', [EventController::class, 'import'])->name('import.events');
 });
 

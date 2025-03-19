@@ -10,8 +10,13 @@ use App\Models\Dessert;
 use App\Models\EventType;
 use App\Models\Event;
 use App\Models\Status;
-
+use App\Exports\EventExport;
+use Maatwebsite\Excel\Facades\Excel as ExcelFacade;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+use App\Imports\EventImport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EventController extends Controller
 {
@@ -149,8 +154,6 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $event->deleted = false;
         $event->save();
-        
-
         return redirect()->route('events.getAll')->with('success', 'Evento restaurado com sucesso!');
     }
 
@@ -238,4 +241,37 @@ class EventController extends Controller
 
         return redirect()->route('events.getAll')->with('success', "-- $event->name -- modificado com sucesso.");
     }
+
+     public function data_management() {
+        return view('database.database');
+    }
+
+    
+    public function export(Request $request) {
+        $timestamp = Carbon::now()->format('Y_m_d_H:i');
+        $fileName = 'events_backup_' . $timestamp . '.csv'; 
+        $filePath = 'backup/' . $fileName;
+
+        if (!Storage::exists('backup')) {
+            Storage::makeDirectory('backup');
+        }
+
+        ExcelFacade::store(new EventExport, $filePath);
+        return Storage::download($filePath);
+    }
+
+
+
+    public function import(Request $request)
+        {
+            $request->validate([
+                'file' => 'required|mimes:csv,txt'
+            ]);
+
+            Excel::import(new EventImport, $request->file('file'));
+
+            return back()->with('success', 'Events imported successfully.');
+        }
+
+    
 }

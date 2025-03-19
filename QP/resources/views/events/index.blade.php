@@ -55,8 +55,9 @@
 
             
             <div class="col-md-3">
+                <label for="show_deleted">Eventos apagados</label>
                 <input type="checkbox" id="show_deleted" name="show_deleted" value="1" {{ request('show_deleted') ? 'checked' : '' }}>
-                <label for="show_deleted">Mostrar eventos apagados</label>
+
             </div>
 
             <div class="col-md-3 align-self-end">
@@ -113,14 +114,14 @@
 
                        <td>
                             <div class="form-group">
-                                <a href="{{ route('events.edit', ['id' => $event->id]) }}" class="btn btn-secondary btn-sm">Edit</a>
-                                @if($event->deleted_at)
+                                @if($event->deleted)
                                     <form action="{{ route('events.restore', ['id' => $event->id]) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('PATCH')
-                                        <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Tem a certeza que quer restaurar o evento?');">Undelete</button>
+                                        <button type="submit" class="btn btn-sm" style="background-color:#8affad;" onclick="return confirm('Tem a certeza que quer restaurar o evento?');">Undelete</button>
                                     </form>
                                 @else
+                                <a href="{{ route('events.edit', ['id' => $event->id]) }}" class="btn btn-secondary btn-sm">Edit</a>
                                     <form action="{{ route('events.destroy', ['id' => $event->id]) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
