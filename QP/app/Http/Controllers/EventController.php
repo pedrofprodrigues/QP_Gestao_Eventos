@@ -15,6 +15,8 @@ use Maatwebsite\Excel\Facades\Excel as ExcelFacade;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use App\Imports\EventImport;
+use App\Mail\ExportMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -247,7 +249,7 @@ class EventController extends Controller
     }
 
     
-    public function export(Request $request) {
+    public function export() {
         $timestamp = Carbon::now()->format('Y_m_d_H:i');
         $fileName = 'events_backup_' . $timestamp . '.csv'; 
         $filePath = 'backup/' . $fileName;
@@ -273,5 +275,21 @@ class EventController extends Controller
             return back()->with('success', 'Events imported successfully.');
         }
 
-    
+
+    public function sendEmail(){
+        $timestamp = Carbon::now()->format('Y_m_d_H:i');
+        $fileName = 'events_backup_' . $timestamp . '.csv'; 
+        $filePath = 'backup/' . $fileName;
+
+        if (!Storage::exists('backup')) {
+            Storage::makeDirectory('backup');
+        }
+
+        ExcelFacade::store(new EventExport, $filePath);
+        Mail::to('pedrofprodrigues@gmail.com')->send(new ExportMail($fileName, $filePath));
+
+        unlink($filePath);    
+    }
+         
+
 }

@@ -1,1 +1,2 @@
 psql -d qp_db -U qp
+\c quinta
