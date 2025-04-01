@@ -1,0 +1,70 @@
+sudo apt update && sudo apt upgrade -y
+sudo apt install nginx
+				 php php-cli php-mbstring php-xml php-curl php-zip php-tokenizer php-gd php-fpm
+				 php-pgsql postgresql postgresql-contrib
+				 composer
+				 -y
+sudo systemctl start nginx
+sudo systemctl enable nginx
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
+
+
+sudo -i -u postgres
+psql
+
+create database qp;
+create user qpadmin with password 'qppass';
+ALTER ROLE qpadmin SET client_encoding TO 'utf8';
+ALTER ROLE qpadmin SET default_transaction_isolation TO 'read committed';
+ALTER ROLE qpadmin SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE qp TO qpadmin;
+
+\q
+exit
+
+
+cd /var/www
+sudo git clone https://github.com/pedrofprodrigues/QP_Gestao_Eventos.git
+cd QP_Gestao_Eventos/QP
+
+sudo chown -R www-data:www-data .
+sudo chmod -R 775 ./storage ./bootstrap/cache
+
+sudo composer update
+composer install --no-dev --optimize-autoloader
+
+sudo cp .env.example .env
+sudo nano .env
+
+	(remove comment marker --> #)
+	DB_CONNECTION=pgsql
+	DB_HOST=127.0.0.1
+	DB_PORT=5432
+	DB_DATABASE=qp
+	DB_USERNAME=qpadmin
+	DB_PASSWORD=qppass
+
+
+php artisan key:generate
+php artisan migrate --force
+php artisan storage:link
+
+sudo nano /etc/nginx/sites-available/qp
+
+
+
+
+
+
+
+sudo ln -s /etc/nginx/sites-available/laravel /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+
+
+
+
+
+
+
