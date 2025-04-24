@@ -30,6 +30,6 @@ Route::middleware('auth.basic')->group(function () {
         Route::delete('/editInfo/{option}/delete', [EditInfoController::class, 'deleteOption'])->name('deleteOption');
         Route::get('/data', [EventController::class, 'data_management'])->name('events.data_management');
         Route::get('/database', [EventController::class, 'export'])->name('events.export');
-        Route::post('/import-events', [EventController::class, 'import'])->name('import.events');
+        Route::post('/import-events', [EventController::class, 'import_file'])->name('import.events');
 });
 

@@ -109,6 +109,10 @@ CREATE TABLE IF NOT EXISTS events (
 insert into event_types (option) values ('Casamento');
 insert into event_types (option) values ('Baptizado');
 insert into event_types (option) values ('Empresa');
+insert into event_types (option) values ('Bodas');
+insert into event_types (option) values ('Militar');
+insert into event_types (option) values ('Outros');
+insert into event_types (option) values ('Aniversário');
 
 insert into statuses (option) values ('Reservado');
 insert into statuses (option) values ('Cancelado');

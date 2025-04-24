@@ -26,6 +26,8 @@ class CalendarController extends Controller
                 'lago' => ['Lago', '7'],
                 'auditorio' => ['Auditorio', '8'],
                 'jardim' => ['Jardim', '9'],
+                'vip' => ['VIP', '10'],
+                'vip2' => ['VIP2', '11'],
             ];
 
             $roomsUsed = [];

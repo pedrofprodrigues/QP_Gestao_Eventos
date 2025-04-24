@@ -22,6 +22,14 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class EventController extends Controller
 {
+ 
+protected $rooms;
+
+    public function __construct()
+    {
+      $this->rooms = ['room_dinis', 'room_isabel', 'room_joaoiii', 'room_leonor', 'room_espelhos', 'room_atrium', 'lago', 'auditorio', 'jardim', 'vip' , 'vip2' ];
+    }
+
     public function create()
     {
         $appetizers = Appetizer::all();
@@ -32,9 +40,10 @@ class EventController extends Controller
         $eventTypes = EventType::all();
         $statuses = Status::all();
 
+        $rooms = $this->rooms;
 
         $dishes = [['Entradas','appetizer' => $appetizers], ['Sopa','soup' => $soups], ['Peixe','fish' => $fishs], ['Carne','meat' => $meats], ['Sobremesas','dessert' => $desserts]];
-        return view('events.create', compact('dishes', 'eventTypes', 'statuses'));
+        return view('events.create', compact('dishes', 'eventTypes', 'statuses','rooms'));
     }
 
     public function store(Request $request)
@@ -43,8 +52,7 @@ class EventController extends Controller
         $event->save();
 
         $collisionEventIds = [];
-        $rooms = ['room_dinis', 'room_isabel', 'room_joaoiii', 'room_leonor', 'room_espelhos', 'room_atrium', 'lago', 'auditorio', 'jardim'];
-        foreach ($rooms as $room) {
+        foreach ($this->rooms as $room) {
             if ($event->$room == "on") {
                 $collidingEvents = Event::where('id', '!=', $event->id)->where('deleted', false)->where(function ($query) use ($event) {
                     $query->where('event_date_start', '>=', now())
@@ -104,7 +112,7 @@ class EventController extends Controller
             $query->where('deleted', false); 
         }
 
-        $events = $query->with(['event_type_value', 'status_value'])->get();
+        $events = $query->with(['event_type_value', 'status_value'])->orderBy('event_date_start','asc')->get();
 
         return view('events.index', compact('events', 'statuses', 'eventTypes'));
     }
@@ -123,8 +131,9 @@ class EventController extends Controller
         
         $dishes = [['Entradas','appetizer' => $appetizers], ['Sopa','soup' => $soups], ['Peixe','fish' => $fishs], ['Carne','meat' => $meats], ['Sobremesas','dessert' => $desserts]];
 
+        $rooms = $this->rooms;
 
-        return view('events.edit', compact('event', 'eventTypes', 'dishes', 'statuses'));
+        return view('events.edit', compact('event', 'eventTypes', 'dishes', 'statuses','rooms'));
     }
 
     public function destroy($id)
@@ -196,6 +205,8 @@ class EventController extends Controller
             'lago' => $request['lago'],
             'auditorio' => $request['auditorio'],
             'jardim' => $request['jardim'],
+            'vip' => $request['vip'],
+            'vip2' => $request['vip2'],
         ]);
 
         $collisionIds = json_decode($event->collision_ids, true);
@@ -213,8 +224,7 @@ class EventController extends Controller
         }
 
         $collisionEventIds = [];
-        $rooms = ['room_dinis', 'room_isabel', 'room_joaoiii', 'room_leonor', 'room_espelhos', 'room_atrium', 'lago', 'auditorio', 'jardim'];
-        foreach ($rooms as $room) {
+        foreach ($this->rooms as $room) {
             if ($event->$room == "on") {
                 $collidingEvents = Event::where('id', '!=', $event->id)->where('deleted', false)->where(function ($query) use ($event) {
                     $query->where('event_date_start', '>=', now())
@@ -257,7 +267,7 @@ class EventController extends Controller
         if (!Storage::exists('backup')) {
             Storage::makeDirectory('backup');
         }
-
+      
         ExcelFacade::store(new EventExport, $filePath);
         return Storage::download($filePath);
     }
@@ -274,6 +284,14 @@ class EventController extends Controller
 
             return back()->with('success', 'Events imported successfully.');
         }
+        
+    public function import_file()
+        {
+            $filePath = storage_path('app/public/events.csv');
+            Excel::import(new EventImport, $filePath);
+
+            return back()->with('success', 'Events imported successfully.');
+        } 
 
 
     public function sendEmail(){

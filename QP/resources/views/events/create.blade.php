@@ -100,7 +100,9 @@
                 'Atrium' => 'room_atrium',
                 'Lago' => 'lago',
                 'Auditório' => 'auditorio',
-                'Jardim' => 'jardim'
+                'Jardim' => 'jardim',
+                'Vip'=>'vip',
+                'Vip2'=>'vip2'
             ];
             $auditoriumExtras = [
                 'Palco' => 'stage',

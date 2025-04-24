@@ -19,7 +19,9 @@
         'Atrium' => 'room_atrium',
         'Lago' => 'lago',
         'Auditório' => 'auditorio',
-        'Jardim' => 'jardim'
+        'Jardim' => 'jardim',
+        'VIP' => 'vip',
+        'VIP2' => 'vip2'
     ];
 @endphp
 
@@ -72,6 +74,8 @@
                 {id:7 , title:'Lago', eventBackgroundColor:'#4f4f4f'},
                 {id:8 , title:'Auditorio', eventBackgroundColor:'#02b0a1'},
                 {id:9 , title:'Jardim', eventBackgroundColor:'#362f7d'},
+                {id:10 , title:'VIP', eventBackgroundColor:'#3285a8'},
+                {id:11 , title:'VIP2', eventBackgroundColor:'#51693b'},
             ],
             slotDuration: 3600,
             minTime: '00:00',

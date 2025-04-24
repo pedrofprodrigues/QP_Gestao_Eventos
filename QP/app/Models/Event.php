@@ -53,7 +53,9 @@ class Event extends Model
         'lake_music',
         'auditorium_music',
         'stage',
-        'collision_ids'
+        'collision_ids',
+        'vip',
+        'vip2'
     ];
 
     protected $casts = [

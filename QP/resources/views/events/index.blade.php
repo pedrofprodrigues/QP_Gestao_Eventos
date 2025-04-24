@@ -89,6 +89,7 @@
                     <th scope="col">Acções</th>
                 </tr>
             </thead>
+            
             <tbody>
                 @foreach($events as $event)
                     <tr>
@@ -103,6 +104,8 @@
                             {{ $event->lago ? 'Lago' : '' }}
                             {{ $event->jardim ? 'Jardim' : '' }}
                             {{ $event->auditorio ? 'Auditorio' : '' }}
+                            {{ $event->vip ? 'VIP' : '' }}
+                            {{ $event->vip2 ? 'VIP2' : '' }}
                         </td>
                         <td>{{ $event->event_date_start->format('j/m/Y, H:i') }}</td>
                         <td>{{ $event->event_date_end->format('j/m/Y, H:i') }}</td>
