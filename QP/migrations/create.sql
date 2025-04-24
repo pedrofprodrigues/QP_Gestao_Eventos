@@ -81,6 +81,8 @@ CREATE TABLE IF NOT EXISTS events (
     room_leonor BOOLEAN,
     room_espelhos BOOLEAN,
     room_atrium BOOLEAN,
+    vip BOOLEAN,
+    vip2 BOOLEAN,
     lago BOOLEAN,
     lago_extras VARCHAR(255) ,
     auditorio BOOLEAN,
